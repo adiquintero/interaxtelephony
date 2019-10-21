@@ -1,0 +1,154 @@
+package com.interax.telephony.service.callingcard.data;
+
+import java.io.Serializable;
+//import java.util.Vector;
+
+
+import com.interax.telephony.service.data.ServicePin;
+
+import java.util.Date;
+import java.util.List;
+
+public class CallingCardPin extends ServicePin implements Serializable {
+	
+    private static final long serialVersionUID = 1L;
+    private int serviceType;
+    private Long serial;
+    private Float currentBalance;
+    private String password;
+    private int status;
+    private String currency;
+    private String language;
+    private int paymentType;
+    private List<CallingCardPinQuota> callingCardPinQuotas;
+    private Long serviceId;
+    private int vipAccess;
+    private Date firstUseDate;
+    private Date expirationDate;
+    private int expirationType;
+    private int type;
+    
+    
+    
+
+    //Workaround
+    public CallingCardServiceType getServiceType() {
+            return CallingCardServiceType.values()[this.serviceType];
+    }
+    public void setServiceType(CallingCardServiceType serviceType) {
+            this.serviceType = serviceType.ordinal();
+    }
+    public void setServiceType(String serviceType) {
+            this.serviceType = CallingCardServiceType.valueOf(serviceType).ordinal();
+    }
+
+    public Float getCurrentBalance() {
+            return currentBalance;
+    }
+    public void setCurrentBalance(Float currentBalance) {
+            this.currentBalance = currentBalance;
+    }
+    public String getPassword() {
+            return password;
+    }
+    public void setPassword(String password) {
+            this.password = password;
+    }
+
+    //Workaround
+    public CallingCardPinStatus getStatus() {
+            return CallingCardPinStatus.values()[this.status];
+    }
+    public void setStatus(CallingCardPinStatus status) {
+            this.status = status.ordinal();
+    }
+    public void setStatus(String status) {
+            this.status = CallingCardPinStatus.valueOf(status).ordinal();
+    }
+
+    public CallingCardPinPaymentType getPaymentType() {
+            return CallingCardPinPaymentType.values()[this.paymentType];
+    }
+    public void setPaymentType(CallingCardPinPaymentType paymentType) {
+            this.paymentType = paymentType.ordinal();
+    }
+    public void setPaymentType(String paymentType) {
+            this.paymentType = CallingCardPinPaymentType.valueOf(paymentType).ordinal();
+    }
+
+    public String getCurrency() {
+            return currency;
+    }
+    public void setCurrency(String currency) {
+            this.currency = currency;
+    }
+    public String getLanguage() {
+            return language;
+    }
+    public void setLanguage(String language) {
+            this.language = language;
+    }
+    public Long getSerial() {
+            return serial;
+    }
+    public void setSerial(Long serial) {
+            this.serial = serial;
+    }
+    public List<CallingCardPinQuota> getCallingCardPinQuotas() {
+            return callingCardPinQuotas;
+    }
+    public void setCallingCardPinQuotas(List<CallingCardPinQuota> callingCardPinQuotas) {
+            this.callingCardPinQuotas = callingCardPinQuotas;
+    }
+
+    public Long getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
+    }
+	
+    public int getVipAccess() {
+        return vipAccess;
+    }
+
+    public void setVipAccess(int vipAccess) {
+        this.vipAccess = vipAccess;
+    }
+
+    public Date getFirstUseDate() {
+		return firstUseDate;
+	}
+	public void setFirstUseDate(Date firstUseDate) {
+		this.firstUseDate = firstUseDate;
+	}
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+	public void setExpirationDate(Date expirationDate) {
+		this.expirationDate = expirationDate;
+	}
+	public int getExpirationType() {
+		return expirationType;
+	}
+	public void setExpirationType(int expirationType) {
+		this.expirationType = expirationType;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public void setPaymentType(int paymentType) {
+		this.paymentType = paymentType;
+	}
+	@Override
+    public String toString() {
+            return "CallingCardPin{serial="+this.getSerial()+",serviceType="+this.getServiceType()+",status="+this.getStatus()+",currentBalance="+this.getCurrentBalance()+",currency="+this.getCurrency()+",language="+this.getLanguage()+"}";
+    }
+    
+    
+   
+}

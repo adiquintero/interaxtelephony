@@ -1,0 +1,18 @@
+D
+/PickDialingAniNotFoundException.java/1.1/Wed Sep 29 19:59:36 2010//TDesarrollo
+/PickDialingCreditLimitExceededException.java/1.1/Wed Sep 29 19:59:36 2010//TDesarrollo
+/PickDialingCustomerNotFoundException.java/1.1/Wed Sep 29 19:59:36 2010//TDesarrollo
+/PickDialingException.java/1.1/Wed Sep 29 19:59:36 2010//TDesarrollo
+/PickDialingGeneralException.java/1.1/Wed Sep 29 19:59:36 2010//TDesarrollo
+/PickDialingInvalidAccessTypeException.java/1.1/Wed Sep 29 19:59:37 2010//TDesarrollo
+/PickDialingInvalidCountryCodeException.java/1.1/Wed Sep 29 19:59:37 2010//TDesarrollo
+/PickDialingInvalidServiceTypeException.java/1.1/Wed Sep 29 19:59:36 2010//TDesarrollo
+/PickDialingInvalidTransactionException.java/1.1/Wed Sep 29 19:59:37 2010//TDesarrollo
+/PickDialingInvalidTransactionIdException.java/1.1/Wed Sep 29 19:59:37 2010//TDesarrollo
+/PickDialingMaxConcurrentCallException.java/1.1/Wed Sep 29 19:59:37 2010//TDesarrollo
+/PickDialingMissingDidException.java/1.1/Wed Sep 29 19:59:36 2010//TDesarrollo
+/PickDialingNotEnoughBalanceException.java/1.1/Wed Sep 29 19:59:37 2010//TDesarrollo
+/PickDialingOverdueInvoiceException.java/1.1/Wed Sep 29 19:59:36 2010//TDesarrollo
+/PickDialingRateNotFoundException.java/1.1/Wed Sep 29 19:59:36 2010//TDesarrollo
+/PickDialingRestrictedCallException.java/1.1/Wed Sep 29 19:59:36 2010//TDesarrollo
+/PickDialingUnauthorizedCallException.java/1.1/Wed Sep 29 19:59:36 2010//TDesarrollo

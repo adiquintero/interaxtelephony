@@ -1,0 +1,27 @@
+D
+/InteractiveVoiceResponseAccessType.java/1.1/Wed Jan 05 15:32:22 2011//TDesarrollo
+/InteractiveVoiceResponseAction.java/1.1/Wed Jan 05 15:32:21 2011//TDesarrollo
+/InteractiveVoiceResponseCall.java/1.1/Wed Jan 05 15:32:22 2011//TDesarrollo
+/InteractiveVoiceResponseCallStatus.java/1.1/Wed Jan 05 15:32:23 2011//TDesarrollo
+/InteractiveVoiceResponseCancelData.java/1.1/Wed Jan 05 15:32:22 2011//TDesarrollo
+/InteractiveVoiceResponseCommitData.java/1.1/Wed Jan 05 15:32:22 2011//TDesarrollo
+/InteractiveVoiceResponseData.java/1.1/Wed Jan 05 15:32:21 2011//TDesarrollo
+/InteractiveVoiceResponseDialog.java/1.1/Wed Jan 05 15:32:22 2011//TDesarrollo
+/InteractiveVoiceResponseDialogType.java/1.1/Wed Jan 05 15:32:22 2011//TDesarrollo
+/InteractiveVoiceResponseDnid.java/1.1/Wed Jan 05 15:32:21 2011//TDesarrollo
+/InteractiveVoiceResponseOption.java/1.1/Wed Jan 05 15:32:22 2011//TDesarrollo
+/InteractiveVoiceResponseOptionAnswer.java/1.1/Wed Jan 05 15:32:22 2011//TDesarrollo
+/InteractiveVoiceResponseRequestData.java/1.1/Wed Jan 05 15:32:21 2011//TDesarrollo
+/InteractiveVoiceResponseReservation.java/1.1/Wed Jan 05 15:32:22 2011//TDesarrollo
+/InteractiveVoiceResponseScript.java/1.2/Mon Oct 22 15:41:08 2012//TDesarrollo
+/InteractiveVoiceResponseScriptAnswer.java/1.1/Wed Jan 05 15:32:23 2011//TDesarrollo
+/InteractiveVoiceResponseScriptSchedule.java/1.2/Fri Jun 03 15:37:37 2011//TDesarrollo
+/InteractiveVoiceResponseServiceType.java/1.1/Wed Jan 05 15:32:23 2011//TDesarrollo
+/InteractiveVoiceResponseTransactionalRequest.java/1.3/Mon Oct 22 15:41:09 2012//TDesarrollo
+/InteractiveVoiceResponseTransactionalResponse.java/1.3/Mon Oct 22 15:41:09 2012//TDesarrollo
+/IvrDid.java/1.2/Mon Oct 22 15:41:09 2012//TDesarrollo
+/IvrDidStep.java/1.1/Wed Jan 05 15:32:22 2011//TDesarrollo
+/IvrDidStepAction.java/1.1/Wed Jan 05 15:32:22 2011//TDesarrollo
+/IvrDidType.java/1.1/Wed Jan 05 15:32:22 2011//TDesarrollo
+/IvrIvr.java/1.1/Wed Jan 05 15:32:22 2011//TDesarrollo
+/IvrIvrType.java/1.1/Wed Jan 05 15:32:21 2011//TDesarrollo

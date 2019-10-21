@@ -1,0 +1,18 @@
+D
+/DIDException.java/1.1/Wed May 02 16:15:34 2012//TDesarrollo
+/DIDGeneralException.java/1.1/Fri May 04 22:35:16 2012//TDesarrollo
+/DIDInvalidTransactionIdException.java/1.1/Wed May 09 13:25:40 2012//TDesarrollo
+/DIDTransactionException.java/1.1/Wed May 09 13:25:40 2012//TDesarrollo
+/DidCreditLimitExceededException.java/1.1/Fri Jun 01 14:31:27 2012//TDesarrollo
+/DidDidNotFoundException.java/1.1/Fri May 04 22:35:16 2012//TDesarrollo
+/DidInvalidAccessTypeException.java/1.1/Fri Jun 01 14:31:27 2012//TDesarrollo
+/DidInvalidCountryCodeException.java/1.1/Fri Jun 01 14:31:26 2012//TDesarrollo
+/DidInvalidDnException.java/1.1/Fri Jun 01 14:31:27 2012//TDesarrollo
+/DidInvalidServiceTypeException.java/1.1/Fri Jun 01 14:31:27 2012//TDesarrollo
+/DidMaxConcurrentCallException.java/1.1/Fri Jun 01 14:31:27 2012//TDesarrollo
+/DidNotEnoughBalanceException.java/1.1/Fri Jun 01 14:31:26 2012//TDesarrollo
+/DidOverdueInvoiceException.java/1.1/Fri Jun 01 14:31:27 2012//TDesarrollo
+/DidRateNotFoundException.java/1.1/Fri Jun 01 14:31:27 2012//TDesarrollo
+/DidRestrictedCallException.java/1.1/Fri Jun 01 14:31:26 2012//TDesarrollo
+/DidServiceNotFoundException.java/1.1/Fri May 04 22:35:16 2012//TDesarrollo
+/DidUnauthorizedCallException.java/1.1/Fri Jun 01 14:31:27 2012//TDesarrollo

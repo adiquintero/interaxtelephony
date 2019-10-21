@@ -1,0 +1,14 @@
+D
+/InteractiveVoiceResponseAccessTypeException.java/1.1/Wed Jan 05 15:32:20 2011//TDesarrollo
+/InteractiveVoiceResponseDidNotFoundException.java/1.1/Wed Jan 05 15:32:20 2011//TDesarrollo
+/InteractiveVoiceResponseException.java/1.1/Wed Jan 05 15:32:21 2011//TDesarrollo
+/InteractiveVoiceResponseGeneralException.java/1.1/Wed Jan 05 15:32:21 2011//TDesarrollo
+/InteractiveVoiceResponseInvalidAccessTypeException.java/1.1/Wed Jan 05 15:32:21 2011//TDesarrollo
+/InteractiveVoiceResponseInvalidServiceTypeException.java/1.1/Wed Jan 05 15:32:21 2011//TDesarrollo
+/InteractiveVoiceResponseInvalidTransactionIdException.java/1.1/Wed Jan 05 15:32:20 2011//TDesarrollo
+/InteractiveVoiceResponseMaxConcurrentCallException.java/1.1/Wed Jan 05 15:32:21 2011//TDesarrollo
+/InteractiveVoiceResponseNotFoundException.java/1.1/Wed Jan 05 15:32:20 2011//TDesarrollo
+/InteractiveVoiceResponseOverdueInvoiceException.java/1.1/Wed Jan 05 15:32:20 2011//TDesarrollo
+/InteractiveVoiceResponseRateNotFoundException.java/1.1/Wed Jan 05 15:32:20 2011//TDesarrollo
+/InteractiveVoiceResponseTransactionException.java/1.1/Wed Jan 05 15:32:21 2011//TDesarrollo
+/InteractiveVoiceResponseUnauthorizedCallException.java/1.1/Wed Jan 05 15:32:21 2011//TDesarrollo

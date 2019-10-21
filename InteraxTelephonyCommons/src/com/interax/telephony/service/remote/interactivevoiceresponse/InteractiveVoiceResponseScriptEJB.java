@@ -1,0 +1,28 @@
+package com.interax.telephony.service.remote.interactivevoiceresponse;
+
+import java.util.List;
+
+import javax.ejb.Remote;
+
+import com.interax.telephony.service.interactivevoiceresponse.data.InteractiveVoiceResponseTransactionalRequest;
+import com.interax.telephony.service.interactivevoiceresponse.data.InteractiveVoiceResponseTransactionalResponse;
+import com.interax.telephony.util.InteraxTelephonyGenericEjb;
+
+
+@Remote
+public interface InteractiveVoiceResponseScriptEJB extends InteraxTelephonyGenericEjb
+{
+	public InteractiveVoiceResponseTransactionalResponse getCompleteScript(InteractiveVoiceResponseTransactionalRequest request) throws Exception;
+	public List<InteractiveVoiceResponseTransactionalResponse> getCompleteScripts(List<InteractiveVoiceResponseTransactionalRequest> requests) throws Exception;
+	
+	public InteractiveVoiceResponseTransactionalResponse sendAnswer(InteractiveVoiceResponseTransactionalRequest request) throws Exception;
+	public List<InteractiveVoiceResponseTransactionalResponse> sendAnswers(List<InteractiveVoiceResponseTransactionalRequest> requests) throws Exception;
+
+	public InteractiveVoiceResponseTransactionalResponse updateCallStatus(InteractiveVoiceResponseTransactionalRequest request) throws Exception;
+	public List<InteractiveVoiceResponseTransactionalResponse> updateCallsStatus(List<InteractiveVoiceResponseTransactionalRequest> requests) throws Exception;
+
+	public InteractiveVoiceResponseTransactionalResponse updateCallLanguage(InteractiveVoiceResponseTransactionalRequest request) throws Exception;
+	public List<InteractiveVoiceResponseTransactionalResponse> updateCallsLanguages(List<InteractiveVoiceResponseTransactionalRequest> requests) throws Exception;
+	
+}
+
