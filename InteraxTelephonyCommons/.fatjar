@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Mon Sep 27 17:50:42 VET 2010
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=/home/yusmery/workspaces/alodiga/head/InteraxTelephonyInstallers/lib/interaxtelephony/InteraxTelephonyCommons.jar
+manifest.mergeall=true
+manifest.mainclass=
+manifest.file=<createnew>
+jarname.isextern=true
+onejar.expand=
+excludes=<po|InteraxTelephonyCommons>~CVS/;<po|InteraxLibraries>;<po|InteraxTelephonyAsteriskJava>;<jar|appserv-admin.jar>;<jar|appserv-deployment-client.jar>;<jar|appserv-rt.jar>;<jar|javaee.jar>;<jar|edtftpj.jar>
+includes=
