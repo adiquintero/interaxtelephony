@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/InteraxReports"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/InteraxTelephonyAGIServer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/InteraxTelephonyAsteriskJava"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/InteraxTelephonyCommons"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/InteraxTelephony Third Party Libraries"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/InteraxLibraries"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="output" path="build"/>
+</classpath>
