@@ -1,0 +1,12 @@
+/InteraxTelephonyAmiServer.java/1.3/Fri Mar 13 23:29:32 2009//
+/InteraxTelephonyAmiServerConfig.java/1.2/Thu May 20 20:34:55 2010//
+/InteraxTelephonyAmiServerConfigLoader.java/1.2/Tue Mar 02 14:26:06 2010//
+/InteraxTelephonyAmiServerLogger.java/1.1/Mon Dec 15 19:32:57 2008//
+/InteraxTelephonyCallManager.java/1.6/Tue Sep 15 19:46:04 2009//
+/InteraxTelephonyManagedCall.java/1.7/Thu May 13 13:52:45 2010//
+/InteraxTelephonyManagedCallCache.java/1.3/Wed Dec 05 16:01:49 2012//
+D/callingcard////
+D/did////
+D/ippbx////
+D/pickdialing////
+D/voicetraffic////
