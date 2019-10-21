@@ -1,0 +1,20 @@
+#!/bin/sh
+
+libmodule=$1
+case $libmodule in
+   "EJBSG123")
+		cp $INTERAX_TELEPHONY_WORKSPACE_DIR/InteraxTelephonyInstallers/lib/wixtel/EJBSG123.jar $INTERAX_TELEPHONY_WORKSPACE_DIR/Wixtel/Wixtel/WEB-INF/lib/
+	;;
+	
+   "IpPbxEjb")
+		cp $INTERAX_TELEPHONY_WORKSPACE_DIR/InteraxTelephonyInstallers/lib/interaxtelephony/IpPbxEJB.jar $INTERAX_TELEPHONY_WORKSPACE_DIR/Wixtel/Wixtel/WEB-INF/lib/
+	;;
+	
+	"all")
+   		interaxtelephony-workspace-copy IpPbxEjb
+	;;
+	
+    *) 
+		echo "Unknown lib module."
+	;;
+esac

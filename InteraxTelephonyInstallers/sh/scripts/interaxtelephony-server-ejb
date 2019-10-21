@@ -1,0 +1,19 @@
+#!/bin/sh
+
+. interaxtelephony-functions
+
+action=$1
+case $action in
+   	"updateconfig")
+		echo -n "WARNING: IF YOU ARE IN DEVELOPMENT, PLEASE COPY THE CONFIG FILES TO INSTALLERS, OTHERWISE THE CONFIG WON'T UPDATE."
+   	    $SUDO_COMMAND rm $EJB_SERVER_DIR/config/* -Rf
+   	    
+   	    #IPPBXEJB
+   	    
+   	    $SUDO_COMMAND mkdir $EJB_SERVER_DIR/config/ippbx 
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/IpPbxEJB/config/*.properties $EJB_SERVER_DIR/config/ippbx/. -Rf
+	;;
+   *) 
+		echo "Unknown ejb-server action."
+	;;
+esac

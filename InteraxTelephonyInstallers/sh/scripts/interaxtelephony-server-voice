@@ -1,0 +1,51 @@
+#!/bin/sh
+
+action=$1
+case $action in
+	
+	"createdirs")
+		$SUDO_COMMAND mkdir -p $ASTERISK_DIR/etc/asterisk
+		$SUDO_COMMAND mkdir -p $ASTERISK_DIR/var/lib/asterisk
+		$SUDO_COMMAND mkdir -p $ASTERISK_DIR/var/spool/asterisk
+		$SUDO_COMMAND mkdir -p $ASTERISK_DIR/var/run
+		$SUDO_COMMAND mkdir -p $ASTERISK_DIR/var/log/asterisk/cdr-csv
+		$SUDO_COMMAND mkdir -p $ASTERISK_DIR/var/log/asterisk/cdr-custom
+		$SUDO_COMMAND cp -Rf /etc/asterisk/* $ASTERISK_DIR/etc/asterisk/
+		$SUDO_COMMAND cp -Rf /var/lib/asterisk/* $ASTERISK_DIR/var/lib/asterisk/
+		$SUDO_COMMAND cp -Rf /var/spool/asterisk/* $ASTERISK_DIR/var/spool/asterisk/
+	;;
+	
+   	"console")
+		$SUDO_COMMAND $ASTERISK_DIR/sbin/asterisk -rC $ASTERISK_DIR/etc/asterisk/asterisk.conf
+	;;
+	
+   	"reload")
+   		$SUDO_COMMAND $ASTERISK_DIR/sbin/asterisk -rx "module reload" -C $ASTERISK_DIR/etc/asterisk/asterisk.conf
+	;;
+	
+	"restart")
+		interaxtelephony-server-voice stop
+		interaxtelephony-server-voice start
+	;;
+
+   "start")
+		$SUDO_COMMAND $ASTERISK_SBIN_DIR/safe_asterisk  -C $ASTERISK_DIR/etc/asterisk/asterisk.conf
+		echo "Asterisk started."
+	;;
+
+	"startConsole")
+		interaxtelephony-server-voice start
+		interaxtelephony-server-voice console
+	;;
+ 
+   "stop")
+   		$SUDO_COMMAND $ASTERISK_DIR/sbin/asterisk -rx "stop gracefully" -C $ASTERISK_DIR/etc/asterisk/asterisk.conf
+   		echo "Asterisk stopped."
+	;;
+   "stopnow")
+   		$SUDO_COMMAND $ASTERISK_DIR/sbin/asterisk -rx "stop now" -C $ASTERISK_DIR/etc/asterisk/asterisk.conf
+	;;
+	*) 
+		echo "Unknown web-server action."
+	;;
+esac

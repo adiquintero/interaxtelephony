@@ -1,0 +1,52 @@
+#!/bin/sh
+
+webmodule=$1
+case $webmodule in
+    "CallingCardEJB")
+            echo undeploying $webmodule...
+            $AS_ADMIN_COMMAND undeploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE CallingCardEJB
+        ;;
+     "DIDEJB")
+            echo undeploying $webmodule...
+            $AS_ADMIN_COMMAND undeploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE DIDEJB
+        ;;
+    "InteraxTelephonyEJB")
+            echo undeploying $webmodule...
+            $AS_ADMIN_COMMAND undeploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE InteraxTelephonyEJB
+        ;;
+    "InteraxTelephonySecurityEJB")
+            echo undeploying $webmodule...
+            $AS_ADMIN_COMMAND undeploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE InteraxTelephonySecurityEJB
+        ;;    
+
+    "IpPbxEJB")
+            echo undeploying $webmodule...
+            $AS_ADMIN_COMMAND undeploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE IpPbxEJB
+        ;;
+    "InteractiveVoiceResponseEJB")
+            echo undeploying $webmodule...
+            $AS_ADMIN_COMMAND undeploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE InteractiveVoiceResponseEJB
+        ;;
+    "PickDialingEJB")
+            echo undeploying $webmodule...
+            $AS_ADMIN_COMMAND undeploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE PickDialingEJB
+        ;;
+    "VoiceTrafficEJB")
+            echo undeploying $webmodule...
+            $AS_ADMIN_COMMAND undeploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE VoiceTrafficEJB
+        ;;
+    "all")
+   		interaxtelephony-web-undeploy CallingCardEJB
+   		interaxtelephony-web-undeploy DIDEJB
+        interaxtelephony-web-undeploy InteraxTelephonyEJB
+        interaxtelephony-web-undeploy InteraxTelephonySecurityEJB
+   		interaxtelephony-web-undeploy IpPbxEJB
+        interaxtelephony-web-undeploy InteractiveVoiceResposeEJB
+        interaxtelephony-web-undeploy PickDialingEJB
+   		interaxtelephony-web-undeploy VoiceTrafficEJB
+                echo "undeploy all done!"
+    ;;
+    *)
+	echo "Unknown web module."
+    ;;
+esac

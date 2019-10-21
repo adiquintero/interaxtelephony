@@ -1,0 +1,327 @@
+#!/bin/sh
+
+
+
+# ----------------------------------------------
+# LINUX
+# ----------------------------------------------
+export SUDO_COMMAND=sudo
+export LINUX_ARCHITECTURE=32
+export PERL_VERSION=5.10.1
+# Versiones MySQL disponibles: "5.1.34", "5.5.29"
+export MYSQL_VERSION=5.1.34
+# Versiones Glassfish disponibles "2.1", "3.1.2":
+export GLASSFISH_VERSION=2.1
+# Tipo de instalación "1: Con Sandbox. 0: Sin Sandbox"
+export USE_SANDBOX=1
+
+export LINUX_SHARE_DIR=/usr/share
+export LINUX_INCLUDE_DIR=/usr/include
+export LINUX_LOGS_DIR=/var/log
+export LINUX_RUN_DIR=/var/run
+export LINUX_SRC_DIR=/usr/src
+export LINUX_VAR_DIR=/var/lib
+
+
+# ----------------------------------------------
+# ALODIGA
+# ----------------------------------------------
+export ALODIGA_HOSTNAME=development12.alodiga.com
+
+export ALODIGA_BASE_DIR=$LINUX_SHARE_DIR/alodiga
+export ALODIGA_INCLUDE_DIR=$LINUX_INCLUDE_DIR/alodiga
+export ALODIGA_LOGS_DIR=$LINUX_LOGS_DIR/alodiga
+export ALODIGA_RUN_DIR=$LINUX_RUN_DIR/alodiga
+export ALODIGA_SRC_DIR=$LINUX_SRC_DIR/alodiga
+export ALODIGA_VAR_DIR=$LINUX_VAR_DIR/alodiga
+
+
+# ----------------------------------------------
+# INTERAX LIBRARIES
+# ----------------------------------------------
+export INTERAX_LIBRARIES_LOGS_DIR=$ALODIGA_LOGS_DIR/interaxlibraries
+
+
+# ----------------------------------------------
+# INTERAX TELEPHONY
+# ----------------------------------------------
+# LA VERSIÓN NUNCA DEBE SER DEFAULT
+export INTERAX_TELEPHONY_VERSION=head
+export INTERAX_TELEPHONY_HOSTNAME=$ALODIGA_HOSTNAME
+
+export INTERAX_TELEPHONY_BASE_DIR=$ALODIGA_BASE_DIR/interaxtelephony/$INTERAX_TELEPHONY_VERSION
+export INTERAX_TELEPHONY_SERVERS_DIR=$INTERAX_TELEPHONY_BASE_DIR/server
+export INTERAX_TELEPHONY_APPS_DIR=$INTERAX_TELEPHONY_BASE_DIR/app
+export INTERAX_TELEPHONY_LIBS_DIR=$INTERAX_TELEPHONY_BASE_DIR/lib
+export INTERAX_TELEPHONY_WARS_DIR=$INTERAX_TELEPHONY_BASE_DIR/war
+
+export INTERAX_TELEPHONY_LOGS_DIR=$ALODIGA_LOGS_DIR/interaxtelephony/$INTERAX_TELEPHONY_VERSION
+
+export INTERAX_TELEPHONY_VAR_DIR=$ALODIGA_VAR_DIR/interaxtelephony/$INTERAX_TELEPHONY_VERSION
+export INTERAX_TELEPHONY_SOUNDS_DIR=$INTERAX_TELEPHONY_VAR_DIR/sounds
+
+export INTERAX_TELEPHONY_INCLUDE_DIR=$ALODIGA_INCLUDE_DIR/interaxtelephony/$INTERAX_TELEPHONY_VERSION
+export INTERAX_TELEPHONY_RUN_DIR=$ALODIGA_RUN_DIR/interaxtelephony/$INTERAX_TELEPHONY_VERSION
+export INTERAX_TELEPHONY_PROCESS_IDS_DIR=$INTERAX_TELEPHONY_RUN_DIR
+
+export INTERAX_TELEPHONY_SRC_DIR=$ALODIGA_SRC_DIR/interaxtelephony/$INTERAX_TELEPHONY_VERSION
+export INTERAX_TELEPHONY_SRC_INSTALLER_DIR=$INTERAX_TELEPHONY_SRC_DIR/InteraxTelephonyInstallers
+export INTERAX_TELEPHONY_SRC_INSTALLER_LIB=$INTERAX_TELEPHONY_SRC_INSTALLER_DIR/lib/interaxtelephony
+export INTERAX_TELEPHONY_SRC_APP_INSTALLERS=$INTERAX_TELEPHONY_SRC_INSTALLER_DIR/installers
+
+
+
+# ----------------------------------------------
+# INSTALLER
+# ----------------------------------------------
+
+export INTERAX_TELEPHONY_INSTALLER_DIR=$INTERAX_TELEPHONY_SRC_DIR/InteraxTelephonyInstallers
+export INTERAX_TELEPHONY_INSTALLERS_DIR=$INTERAX_TELEPHONY_INSTALLER_DIR/installers
+export INTERAX_TELEPHONY_TEMPLATE_CONFIG_DIR=$INTERAX_TELEPHONY_INSTALLER_DIR/config
+export INTERAX_TELEPHONY_TEMPLATE_SOUNDS_DIR=$INTERAX_TELEPHONY_INSTALLER_DIR/sounds
+export JAVA_INSTALLER_DIR=$INTERAX_TELEPHONY_INSTALLERS_DIR/java
+export JAVA_INSTALLER_FOLDER=jdk1.6.0_13
+case $GLASSFISH_VERSION in
+	"2.1")
+		export GLASSFISH_INSTALLER_FILE=glassfish-installer-v2.1-b60e-linux.jar
+	;;
+	"3.1.2")
+		export GLASSFISH_INSTALLER_FILE=glassfish-3.1.2.2.zip
+	;;
+esac;
+export GLASSFISH_INSTALLER_DIR=$INTERAX_TELEPHONY_INSTALLERS_DIR/glassfish
+
+export GLASSFISH_INSTALLER_FOLDER=glassfish
+export MYSQL_SANDBOX_INSTALLER_DIR=$INTERAX_TELEPHONY_INSTALLERS_DIR/mysql-sandbox
+export MYSQL_SANDBOX_INSTALLER_FILE=MySQL-Sandbox-2.0.99f.tar.gz
+export MYSQL_SANDBOX_INSTALLER_FOLDER=MySQL-Sandbox-2.0.99f
+export MYSQL_INSTALLER_DIR=$INTERAX_TELEPHONY_INSTALLERS_DIR/mysql
+export MYSQL_SRC_INSTALLER_FILE=mysql-5.1.34.tar.gz
+export MYSQL_INSTALLER_FOLDER=$MYSQL_VERSION
+export ASTERISK_INSTALLER_DIR=$INTERAX_TELEPHONY_INSTALLERS_DIR/asterisk
+export ASTERISK_INSTALLER_FILE=asterisk-1.4.21.1.tar.gz
+export ASTERISK_INSTALLER_FOLDER=asterisk-1.4.21.1
+export ASTERISK_INSTALLER_PATCHES_DIR=$ASTERISK_INSTALLER_DIR/patches
+export ASTERISK_INSTALLER_CODECS_DIR=$ASTERISK_INSTALLER_DIR/codecs
+export KAMAILIO_INSTALLER_DIR=$INTERAX_TELEPHONY_INSTALLERS_DIR/kamailio
+export KAMAILIO_INSTALLER_FILE=kamailio-3.0.0_src.tar.gz
+export KAMAILIO_INSTALLER_FOLDER=kamailio-3.0.0
+export DB_SCRIPTS_DIR=$INTERAX_TELEPHONY_INSTALLER_DIR/db
+
+case $MYSQL_VERSION in
+	"5.1.34")
+		case $LINUX_ARCHITECTURE in
+			"32")
+				export JAVA_INSTALLER_FILE=jdk-6u13-linux-i586.bin
+				export MYSQL_BIN_INSTALLER_FILE=mysql-5.1.34-linux-i686-glibc23.tar.gz
+				export MYSQL_INSTALLER_FOLDER_NAME=mysql-5.1.34-linux-i686-glibc23
+				export ASTERISK_INSTALLER_G729_CODEC_FILE=$ASTERISK_INSTALLER_CODECS_DIR/codec_g729-gcc4-pentium4.so
+			;;
+			"64")
+				export JAVA_INSTALLER_FILE=jdk-6u13-linux-x64.bin
+				export MYSQL_BIN_INSTALLER_FILE=mysql-5.1.34-linux-x86_64-glibc23.tar.gz
+				export MYSQL_INSTALLER_FOLDER_NAME=mysql-5.1.34-linux-x86_64-glibc23
+				export ASTERISK_INSTALLER_G729_CODEC_FILE=$ASTERISK_INSTALLER_CODECS_DIR/codec_g729-ast14-icc-glibc-x86_64-core2-sse4.so
+			;;
+		esac;
+	;;
+	"5.5.29")
+		case $LINUX_ARCHITECTURE in
+			"32")
+				export JAVA_INSTALLER_FILE=jdk-6u13-linux-i586.bin
+				export MYSQL_BIN_INSTALLER_FILE=mysql-5.5.29-linux2.6-i686.tar.gz
+				export MYSQL_INSTALLER_FOLDER_NAME=mysql-5.5.29-linux2.6-i686
+				export ASTERISK_INSTALLER_G729_CODEC_FILE=$ASTERISK_INSTALLER_CODECS_DIR/codec_g729-gcc4-pentium4.so
+			;;
+			"64")
+				export JAVA_INSTALLER_FILE=jdk-6u13-linux-x64.bin
+				export MYSQL_BIN_INSTALLER_FILE=mysql-5.5.29-linux2.6-x86_64.tar.gz
+				export MYSQL_INSTALLER_FOLDER_NAME=mysql-5.5.29-linux2.6-x86_64
+				export ASTERISK_INSTALLER_G729_CODEC_FILE=$ASTERISK_INSTALLER_CODECS_DIR/codec_g729-ast14-icc-glibc-x86_64-core2-sse4.so
+			;;
+		esac;
+	;;
+esac;
+
+
+
+
+# ----------------------------------------------
+# JAVA
+# ----------------------------------------------
+export JAVA_DIR=$INTERAX_TELEPHONY_SERVERS_DIR/java
+export JAVA_COMMAND=$JAVA_DIR/bin/java
+export JAR_COMMAND=$JAVA_DIR/bin/jar
+export JAVA_HOME=$JAVA_DIR
+export PATH=$JAVA_HOME/bin:$PATH
+#export JAVA_BIN_FILE=jdk-6u13-linux-i586.bin
+#export JVM_DIR=/usr/lib/jvm
+
+
+
+# ----------------------------------------------
+# GLASSFISH
+# ----------------------------------------------
+export GLASSFISH_DIR=$INTERAX_TELEPHONY_SERVERS_DIR/glassfish
+case $GLASSFISH_VERSION in
+	"2.1")
+		export GLASSFISH_DOMAINS_DIR=$GLASSFISH_DIR/domains
+	;;
+	"3.1.2")
+		export GLASSFISH_DOMAINS_DIR=$GLASSFISH_DIR/glassfish/domains
+	;;
+esac;
+export GLASSFISH_DOMAIN_NAME=alodiga-domain
+export GLASSFISH_DOMAIN_DIR=$GLASSFISH_DOMAINS_DIR/$GLASSFISH_DOMAIN_NAME
+export GLASSFISH_LIBS_DIR=$GLASSFISH_DIR/lib
+export AS_ADMIN_COMMAND=$GLASSFISH_DIR/bin/asadmin
+export GLASSFISH_PID_FILE=$INTERAX_TELEPHONY_PROCESS_IDS_DIR/glassfish.pid
+export GLASSFISH_LOGS_DIR=$GLASSFISH_DOMAIN_DIR/logs
+export GLASSFISH_INTERAX_TELEPHONY_LOGS_DIR=$INTERAX_TELEPHONY_LOGS_DIR/server/glassfish
+export GLASSFISH_REAL_LOGS_DIR=$GLASSFISH_INTERAX_TELEPHONY_LOGS_DIR/logs
+export GLASSFISH_USER=interaxtelephony
+export GLASSFISH_PASSWORD=1nt3r4xt3l3ph0nyWEB
+export GLASSFISH_PASSWORD_FILE=/tmp/interaxtelephony-domain-pass.txt
+
+export GLASSFISH_HOST=$ALODIGA_HOSTNAME
+export GLASSFISH_PORT=4848
+export GLASSFISH_TEMP_FILE=/tmp/interaxtelephony-domain_pass
+
+#export GLASSFISH_DIR=$SHARE_DIR/glassfish
+#export GLASSFISH_DOMAINS_DIR=$GLASSFISH_DIR/domains
+#export GLASSFISH_DOMAIN_NAME=interaxtelephony-domain
+#export GLASSFISH_DOMAIN_DIR=$GLASSFISH_DOMAINS_DIR/$GLASSFISH_DOMAIN_NAME
+#export GLASSFISH_LIBS_DIR=$GLASSFISH_DIR/lib
+#export AS_ADMIN_COMMAND=$GLASSFISH_DIR/bin/asadmin
+#export GLASSFISH_INSTALLER_DIR=$INTERAX_TELEPHONY_SRC_APP_INSTALLERS/glassfish
+#export GLASSFISH_SRC_DIR=$INTERAX_TELEPHONY_SRC_INSTALLER_DIR/installers/glassfish
+#export GLASSFISH_BIN_FILE=glassfish-installer-v2.1-b60e-linux.jar
+
+
+
+# ----------------------------------------------
+# MYSQL SANDBOX
+# ----------------------------------------------
+
+export MYSQL_SANDBOX_DIR=$INTERAX_TELEPHONY_SERVERS_DIR/mysql-sandbox
+
+
+
+# ----------------------------------------------
+# MYSQL
+# ----------------------------------------------
+
+export MYSQL_DIR=$INTERAX_TELEPHONY_SERVERS_DIR/mysql
+
+export MYSQL_DATA_DIR=$MYSQL_DIR/data
+export MYSQL_INTERAX_TELEPHONY_VAR_DIR=$INTERAX_TELEPHONY_VAR_DIR/server/mysql
+export MYSQL_REAL_DATA_DIR=$MYSQL_INTERAX_TELEPHONY_VAR_DIR/data
+case $USE_SANDBOX in
+"1") 
+	export MYSQL_PID_FILE=$MYSQL_DATA_DIR/mysql_sandbox3306.pid
+	export USE_COMMAND=$MYSQL_DIR/use
+;;
+"0")
+	export MYSQL_PID_FILE=/usr/local/mysql/data/mysql_sandbox3306.pid
+	export USE_COMMAND=/usr/local/mysql/bin/mysql
+;;
+esac;
+
+
+export REPLACE_COMMAND=$MYSQL_DIR/base/$MYSQL_INSTALLER_FOLDER/bin/replace
+
+
+
+# OJO El password debe ser solo letras o números. Sin simbología especial como : ! . ,
+export DB_HOST=$ALODIGA_HOSTNAME
+export DB_PORT=3306
+export DB_USER=interaxtelephony
+export DB_PASSWORD=1nt3r4xt3l3ph0nyDB
+export DB_ROOT_USER=root
+export DB_ROOT_PASSWORD=$DB_PASSWORD
+
+#export ASTERISK_DB_USER=asterisk
+#export ASTERISK_DB_PASSWORD=4st3r1skDB
+export DB_NAME=asterisk
+export TMP_FILE=/tmp/tempFile
+
+# ---------------< DEPRECATED > ----------------
+
+
+# ----------------------------------------------
+# EJB SERVER
+# ----------------------------------------------
+
+export EJB_SERVER_DIR=$INTERAX_TELEPHONY_BASE_DIR/server/ejb
+
+# ----------------------------------------------
+# AGI SERVER
+# ----------------------------------------------
+
+export AGI_SERVER_DIR=$INTERAX_TELEPHONY_BASE_DIR/server/agiserver
+export AGI_SERVER_DIR_BIN=$AGI_SERVER_DIR/bin
+export AGI_SERVER_DIR_CONFIG=$AGI_SERVER_DIR/config
+export AGI_SERVER_SRC_CONFIG=$INTERAX_TELEPHONY_SRC_INSTALLER_DIR/agiconfig
+
+# ----------------------------------------------
+# APP AMI
+# ----------------------------------------------
+
+export AMI_SRC_CONFIG=$INTERAX_TELEPHONY_SRC_INSTALLER_DIR/amiconfig
+export AMI_DIR=$INTERAX_TELEPHONY_APPS_DIR/InteraxTelephonyAMIs
+export AMI_DIR_BIN=$AMI_DIR/bin
+export AMI_DIR_CONFIG=$AMI_DIR/config
+
+
+
+# ----------------------------------------------
+# ASTERISK
+# ----------------------------------------------
+
+export ASTERISK_DIR=$INTERAX_TELEPHONY_SERVERS_DIR/asterisk
+export ASTERISK_PID_FILE=$ASTERISK_DIR/var/run/asterisk.pid
+export ASTERISK_INTERAX_TELEPHONY_LOGS_DIR=$INTERAX_TELEPHONY_LOGS_DIR/server/asterisk
+export ASTERISK_LOGS_DIR=$ASTERISK_DIR/var/log
+export ASTERISK_REAL_LOGS_DIR=$ASTERISK_INTERAX_TELEPHONY_LOGS_DIR/log
+export ASTERISK_INTERAX_TELEPHONY_VAR_DIR=$INTERAX_TELEPHONY_VAR_DIR/server/asterisk
+export ASTERISK_VARLIB_DIR=$ASTERISK_DIR/var/lib
+export ASTERISK_REAL_VARLIB_DIR=$ASTERISK_INTERAX_TELEPHONY_VAR_DIR/var-lib
+export ASTERISK_VARSPOOL_DIR=$ASTERISK_DIR/var/spool
+export ASTERISK_REAL_VARSPOOL_DIR=$ASTERISK_INTERAX_TELEPHONY_VAR_DIR/var-spool
+export ASTERISK_SBIN_DIR=$ASTERISK_DIR/sbin
+
+export ASTERISK_SOURCE_FOLDER=$INTERAX_TELEPHONY_SRC_APP_INSTALLERS/asterisk
+export ASTERISK_FILE_TAR_GZ=asterisk-1.4.21.1.tar.gz
+export ASTERISK_OLD_DIR=asterisk-1.4.21.1
+export ASTERISK=asterisk
+export ASTERISK_ADD_CONFIG=$ASTERISK_SOURCE_FOLDER/addConfig
+export ASTERISK_CONFIG=$ASTERISK_SOURCE_FOLDER/config
+export ASTERISK_CONFIG_DIR=$ASTERISK_DIR/etc/asterisk
+
+#----------------------------------------------
+# KAMAILIO
+#----------------------------------------------
+export KAMAILIO_DIR=$INTERAX_TELEPHONY_SERVERS_DIR/kamailio
+export KAMAILIO_CTRL_COMMAND=$KAMAILIO_DIR/sbin/kamctl
+export KAMAILIO_CTRLDB_COMMAND=$KAMAILIO_DIR/sbin/kamdbctl
+
+
+
+# ----------------------------------------------
+# CLASSPATHS
+# ----------------------------------------------
+export STAND_ALONE_INTERAX_TELEPHONY_LIBS=$INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteraxTelephonyCommons.jar:$INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteraxLibraries.jar
+export STAND_ALONE_GLASSFISH_LIBS=$GLASSFISH_LIBS_DIR/appserv-rt.jar:$GLASSFISH_LIBS_DIR/javaee.jar:$GLASSFISH_LIBS_DIR/appserv-deployment-client.jar
+export STAND_ALONE_OTHER_LIBS=$INTERAX_TELEPHONY_LIBS_DIR/thirdparty/log4j.jar:$INTERAX_TELEPHONY_LIBS_DIR/thirdparty/commons-net-ftp.jar:$INTERAX_TELEPHONY_LIBS_DIR/thirdparty/commons-net.jar:$INTERAX_TELEPHONY_LIBS_DIR/thirdparty/edtftpj.jar
+export STAND_ALONE_LIBS=bin/:config/:$STAND_ALONE_INTERAX_TELEPHONY_LIBS:$STAND_ALONE_GLASSFISH_LIBS:$STAND_ALONE_OTHER_LIBS
+
+export AMI_CLASSPATH=$STAND_ALONE_LIBS:$INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteraxTelephonyAsteriskJava.jar:$INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteraxTelephonyAMI.jar
+export CALLING_CARD_AMI_CLASSPATH=$AMI_CLASSPATH
+export IP_PBX_AMI_CLASSPATH=$AMI_CLASSPATH
+export VOICE_TRAFFIC_AMI_CLASSPATH=$AMI_CLASSPATH
+export PICK_DIALING_AMI_CLASSPATH=$AMI_CLASSPATH
+export DID_AMI_CLASSPATH=$AMI_CLASSPATH
+
+export IP_PBX_PROVISIONER_THREAD_CLASSPATH=$STAND_ALONE_LIBS:$INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/IpPbxProvisionerThread.jar
+export IT_SECURITY_MANAGER_THREAD_CLASSPATH=$STAND_ALONE_LIBS:$INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/ITSecurityManagerThread.jar
+export AGI_SERVER_CLASSPATH=$STAND_ALONE_LIBS:$INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteraxTelephonyAGIServer.jar:$INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteraxTelephonyAsteriskJava.jar:$INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/IpPbxAGIs.jar:$INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/CallingCardAGIs.jar:$INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/VoiceTrafficAGIs.jar:$INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteractiveVoiceResponseAGIs.jar:$INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/PickDialingAGIs.jar:$INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/BalanceRechargeAGIs.jar:$INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/DIDAGIs.jar

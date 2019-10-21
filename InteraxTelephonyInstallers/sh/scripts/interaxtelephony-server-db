@@ -1,0 +1,88 @@
+#!/bin/sh
+
+action=$1
+case $action in
+	"console")
+		case $USE_SANDBOX in
+		"0")
+	   		cd $MYSQL_DIR
+			$SUDO_COMMAND /usr/local/mysql/bin/mysql -h 127.0.0.1 -u root
+		;;
+		"1")
+	   		cd $MYSQL_DIR
+			$SUDO_COMMAND ./use
+		;;
+		esac
+	;;
+	
+
+   	"restart")
+		interaxtelephony-server-db stop
+		interaxtelephony-server-db start
+	;;
+
+   	"start")
+		case $USE_SANDBOX in
+		"0")
+			TIMEOUT=10				
+			if [ -f $MYSQL_PID_FILE ]
+			then
+			    echo "MySQL server already started (found pid file $MYSQL_PID_FILE). Nothing to do."
+			else
+			    CURDIR=`pwd`
+			    $SUDO_COMMAND /usr/local/mysql/bin/mysqld_safe --basedir=/usr/local/mysql &
+				#--lc-messages-dir="/usr/local/mysql/share/"
+			    cd $CURDIR
+			    ATTEMPTS=1
+			    while [ ! -f $MYSQL_PID_FILE ] 
+			    do
+				ATTEMPTS=$(( $ATTEMPTS + 1 ))
+				echo -n "."
+				if [ $ATTEMPTS = $TIMEOUT ]
+				then
+				    break
+				fi
+				sleep 2
+			    done
+			fi
+
+			if [ -f $MYSQL_PID_FILE ]
+			then
+			    echo " MySQL server started."
+			else
+			    echo " MySQL server couldn't be started."
+			fi
+		;;
+		"1")   		
+			cd $MYSQL_DIR
+			$SUDO_COMMAND ./start
+			$SUDO_COMMAND chmod o+x $MYSQL_DIR/data
+			$SUDO_COMMAND chmod o+r $MYSQL_PID_FILE
+		;;
+		esac
+	;;
+
+   	"stop")
+		case $USE_SANDBOX in
+		"1")		
+	   		cd $MYSQL_DIR
+			$SUDO_COMMAND ./stop
+		;;
+		"0")
+			$SUDO_COMMAND /usr/local/mysql/bin/mysqladmin shutdown
+			echo "Eliminando archivo: $MYSQL_PID_FILE"
+			$SUDO_COMMAND rm -f $MYSQL_PID_FILE
+	#		interaxtelephony system uninstall mysql
+	#		interaxtelephony system uninstall mysql-sandbox
+			$SUDO_COMMAND rm /var/lib/mysql/mysql.sock			
+			$SUDO_COMMAND rm /tmp/mysql_sandbox3306.sock
+			$SUDO_COMMAND killall mysql
+			$SUDO_COMMAND killall mysqld
+		;;
+		esac
+	;;
+
+	*) 
+		echo "Unknown db-server action."
+	;;
+esac

@@ -1,0 +1,134 @@
+#!/bin/sh
+
+
+toUpper() {
+  echo $1 | tr  "[:lower:]" "[:upper:]"
+}
+
+firstCharUpper() {
+  PARAM=$1
+  AUX=$(echo $PARAM | awk  '{ AUX=substr($1, 1, 1); print AUX; }' )
+  LENGTH=${#PARAM}
+  AUX2=$(echo $PARAM | awk -v var=$LENGTH '{ AUX2=substr($1, 2, var - 1); print AUX2; }')
+  FIRST=`toUpper $AUX`
+  echo $FIRST$AUX2
+}
+
+
+
+module=$1
+case $module in
+	
+	"asterisk")
+		    
+		   $SUDO_COMMAND chmod 777  $ASTERISK_DIR/etc/asterisk/	-R	
+		   $SUDO_COMMAND chmod 777 /etc/odbc.ini  	
+		   $SUDO_COMMAND chmod 777 /etc/odbcinst.ini 
+		   
+		   $SUDO_COMMAND cp $ASTERISK_ADD_CONFIG/odbc.ini /etc/odbc.ini   
+		   $SUDO_COMMAND cp $ASTERISK_ADD_CONFIG/odbcinst.ini /etc/odbcinst.ini
+
+		   $SUDO_COMMAND cp $ASTERISK_CONFIG/*.conf  $ASTERISK_CONFIG_DIR/ 
+
+		   $SUDO_COMMAND $REPLACE_COMMAND 'INTERAX_TELEPHONY_VERSION' $INTERAX_TELEPHONY_VERSION -- $ASTERISK_CONFIG_DIR/asterisk.conf
+		   
+		   $SUDO_COMMAND sed 's/;mailcmd/mailcmd/g' $ASTERISK_CONFIG_DIR/voicemail.conf > $ASTERISK_CONFIG_DIR/voicemailAux.conf    
+		   $SUDO_COMMAND sed 's/;attach/attach/g' $ASTERISK_CONFIG_DIR/voicemailAux.conf > $ASTERISK_CONFIG_DIR/voicemail.conf
+		   $SUDO_COMMAND sed 's/;format=wav49|gsm|wav/format=wav/g' $ASTERISK_CONFIG_DIR/voicemail.conf > $ASTERISK_CONFIG_DIR/voicemailAux.conf
+		   $SUDO_COMMAND sed 's/;odbcstorage/odbcstorage/g' $ASTERISK_CONFIG_DIR/voicemailAux.conf > $ASTERISK_CONFIG_DIR/voicemail.conf 
+		   $SUDO_COMMAND sed 's/;odbctable/odbctable/g' $ASTERISK_CONFIG_DIR/voicemail.conf > $ASTERISK_CONFIG_DIR/voicemailAux.conf
+		   
+		   #Cambios en safe_asterisk
+		   $SUDO_COMMAND sed 's/ASTPIDFILE=\/var\/run\/asterisk.pid/ASTPIDFILE=\/usr\/share\/alodiga\/interaxtelephony\/'$INTERAX_TELEPHONY_VERSION'\/server\/asterisk\/var\/run\/asterisk.pid/g' $ASTERISK_SBIN_DIR/safe_asterisk > /tmp/safe_asteriskAux    
+		   $SUDO_COMMAND sed 's/\/bin\/sh/\/bin\/bash/g' /tmp/safe_asteriskAux > /tmp/safe_asteriskAux2
+		   $SUDO_COMMAND mv /tmp/safe_asteriskAux2 $ASTERISK_SBIN_DIR/safe_asterisk
+		   $SUDO_COMMAND chmod +x $ASTERISK_DIR/sbin/safe_asterisk -Rf		  
+		  
+		   $SUDO_COMMAND chmod 644  $ASTERISK_DIR/etc/asterisk/	-R	
+		   $SUDO_COMMAND chmod 644 /etc/odbc.ini  	
+		   $SUDO_COMMAND chmod 644 /etc/odbcinst.ini    
+		   
+		   echo "DONE"		   
+	;;
+	
+	"glassfish")
+		   echo "Configuring Glassfish"
+		   echo "Stopping the domain in case it is running"
+		   $SUDO_COMMAND $AS_ADMIN_COMMAND stop-domain $GLASSFISH_DOMAIN_NAME
+		   echo "Deleting the domain in case it existed"
+		   $SUDO_COMMAND $AS_ADMIN_COMMAND delete-domain $GLASSFISH_DOMAIN_NAME
+		   echo "\nCreating the domain"
+		   echo "AS_ADMIN_PASSWORD=$GLASSFISH_PASSWORD" > $GLASSFISH_PASSWORD_FILE
+		   $SUDO_COMMAND $AS_ADMIN_COMMAND create-domain --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE --adminport 4848 $GLASSFISH_DOMAIN_NAME
+		   cd $GLASSFISH_DOMAIN_DIR
+	       $SUDO_COMMAND ln -s $INTERAX_TELEPHONY_LIBS_DIR/thirdparty/mysql-connector-java-bin.jar $GLASSFISH_DOMAIN_DIR/lib/ext/
+
+		   interaxtelephony-server-web start
+		   BD_NAME_UPPER=`firstCharUpper $DB_NAME`
+		   echo "AS_ADMIN_PASSWORD=$DOMAIN_PASSWORD" >> $TMP_FILE.pass
+		   $SUDO_COMMAND $AS_ADMIN_COMMAND create-jdbc-connection-pool  --validationmethod auto-commit --datasourceclassname com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource --host $GLASSFISH_HOST --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE --restype javax.sql.DataSource --isconnectvalidatereq=true --failconnection=true --nontransactionalconnections=true  --property serverName=$DB_HOST:portNumber=$DB_PORT:databaseName=$DB_NAME:user=$DB_USER:password=$DB_PASSWORD --steadypoolsize 10 --idletimeout 120 --maxpoolsize 30 --description "Asterisk" asterisk
+# Habilitar administracion web
+$SUDO_COMMAND $AS_ADMIN_COMMAND --host $GLASSFISH_HOST --port $GLASSFISH_PORT --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE enable-secure-admin
+		   $SUDO_COMMAND $AS_ADMIN_COMMAND create-jdbc-resource --connectionpoolid $DB_NAME --host $GLASSFISH_HOST --port $GLASSFISH_PORT --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE --description "$BD_NAME_UPPER" jdbc/$BD_NAME_UPPER
+		   rm $TMP_FILE.pass
+
+		   rm $GLASSFISH_PASSWORD_FILE
+		   
+		   echo "DONE"
+	;;
+	
+	"kamailio")
+			$SUDO_COMMAND $KAMAILIO_CTRLDB_COMMAND create
+			$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_INSTALLER_DIR/installers/kamailio/config/*     $INTERAX_TELEPHONY_SERVERS_DIR/kamailio/etc/kamailio/   -Rf
+			interaxtelephony server sipproxy restart
+	;;
+	"mysql")
+		echo "Configuring Database"
+		echo "" > $TMP_FILE.sql
+
+		echo "DROP DATABASE IF EXISTS \`$DB_NAME\`;" >> $TMP_FILE.sql
+		echo "CREATE DATABASE \`$DB_NAME\`;" >> $TMP_FILE.sql		
+		echo "GRANT ALL ON \`$DB_NAME\`.* TO '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';" >> $TMP_FILE.sql
+		echo "GRANT ALL ON \`$DB_NAME\`.* TO '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD';" >> $TMP_FILE.sql
+		echo "GRANT USAGE ON *.* TO '$DB_USER'@'localhost';" >> $TMP_FILE.sql
+		echo "GRANT USAGE ON *.* TO '$DB_USER'@'%';" >> $TMP_FILE.sql
+		echo "GRANT SUPER ON *.* to '$DB_USER'@'localhost';" >> $TMP_FILE.sql
+		echo "GRANT SUPER ON *.* to '$DB_USER'@'%';" >> $TMP_FILE.sql
+		echo "FLUSH PRIVILEGES;" >> $TMP_FILE.sql
+		case $USE_SANDBOX in
+		"1")
+			$USE_COMMAND < $TMP_FILE.sql -h localhost --port=$DB_PORT --user=$DB_ROOT_USER --password=$DB_ROOT_PASSWORD --socket /tmp/mysql_sandbox3306.sock	
+			$USE_COMMAND < $INTERAX_TELEPHONY_SRC_INSTALLER_DIR/db/asterisk-schema.sql -h $DB_HOST --port=$DB_PORT --user=$DB_USER --password=$DB_PASSWORD
+			$USE_COMMAND < $INTERAX_TELEPHONY_SRC_INSTALLER_DIR/db/asterisk-data.sql -h $DB_HOST --port=$DB_PORT --user=$DB_USER --password=$DB_PASSWORD
+			$USE_COMMAND < $INTERAX_TELEPHONY_SRC_INSTALLER_DIR/db/asterisk-functions.sql -h $DB_HOST --port=$DB_PORT --user=$DB_USER --password=$DB_PASSWORD
+			$USE_COMMAND < $INTERAX_TELEPHONY_SRC_INSTALLER_DIR/db/asterisk-procedures.sql -h $DB_HOST --port=$DB_PORT --user=$DB_USER --password=$DB_PASSWORD
+		;;
+		"0")			
+			$SUDO_COMMAND /usr/local/mysql/bin/mysqladmin -h 127.0.0.1 -u root -p'' password $DB_PASSWORD
+			$SUDO_COMMAND /usr/local/mysql/bin/mysql < $TMP_FILE.sql -h 127.0.0.1 --port=$DB_PORT --user=$DB_ROOT_USER --password=$DB_PASSWORD
+			$SUDO_COMMAND /usr/local/mysql/bin/mysql < $INTERAX_TELEPHONY_SRC_INSTALLER_DIR/db/asterisk-schema.sql -h 127.0.0.1 --port=$DB_PORT --user=$DB_USER --password=$DB_PASSWORD 
+			$SUDO_COMMAND /usr/local/mysql/bin/mysql < $INTERAX_TELEPHONY_SRC_INSTALLER_DIR/db/asterisk-data.sql -h 127.0.0.1 --port=$DB_PORT --user=$DB_USER --password=$DB_PASSWORD 
+			$SUDO_COMMAND /usr/local/mysql/bin/mysql < $INTERAX_TELEPHONY_SRC_INSTALLER_DIR/db/asterisk-functions.sql -h 127.0.0.1 --port=$DB_PORT --user=$DB_USER  --password=$DB_PASSWORD
+			$SUDO_COMMAND /usr/local/mysql/bin/mysql < $INTERAX_TELEPHONY_SRC_INSTALLER_DIR/db/asterisk-procedures.sql -h 127.0.0.1 --port=$DB_PORT --user=$DB_USER  --password=$DB_PASSWORD
+			 sudo sh -c "echo bind-address=$DB_HOST >>/etc/mysql/my.cnf"
+			
+		;;
+		esac
+		rm $TMP_FILE.sql 	
+
+		echo "Creating the database"		
+		
+		echo "DONE"
+	;;
+
+	all)
+		interaxtelephony system configure asterisk
+		interaxtelephony system configure kamailio
+		interaxtelephony system configure glassfish
+		interaxtelephony system configure mysql
+	;;
+	
+    *) 
+		echo "Unknown web module";
+	;;
+esac

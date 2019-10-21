@@ -1,0 +1,44 @@
+#!/bin/sh
+
+	newversion=$1
+	
+	if [ -n "$newversion" ]; then
+	
+		# Se puede reemplazar usando el comando
+		# 	find / -type l -name default | grep interaxtelephony
+		# para recorrer las entradas que se encuentren y cambiarlas por la nueva version.
+		
+		echo "******* Changing Version *******"
+		echo "Stopping INTERAXTELEPHONY System => interaxtelephony system stop"
+		interaxtelephony system stop
+		echo "Forcing kill for sure  => $SUDO_COMMAND killall -9 interaxtelephony"
+		$SUDO_COMMAND killall -9 interaxtelephony
+	
+		echo "******* Updating symbolic links:"
+		$SUDO_COMMAND rm /usr/include/alodiga/interaxtelephony/default
+		$SUDO_COMMAND ln -s /usr/include/alodiga/interaxtelephony/$newversion /usr/include/alodiga/interaxtelephony/default
+
+		$SUDO_COMMAND rm /usr/share/alodiga/interaxtelephony/default
+		$SUDO_COMMAND ln -s /usr/share/alodiga/interaxtelephony/$newversion /usr/share/alodiga/interaxtelephony/default
+
+		$SUDO_COMMAND rm /var/lib/alodiga/interaxtelephony/default
+		$SUDO_COMMAND ln -s /var/lib/alodiga/interaxtelephony/$newversion /var/lib/alodiga/interaxtelephony/default
+
+		$SUDO_COMMAND rm /var/log/alodiga/interaxtelephony/default
+		$SUDO_COMMAND ln -s /var/log/alodiga/interaxtelephony/$newversion /var/log/alodiga/interaxtelephony/default
+
+		$SUDO_COMMAND rm /var/run/alodiga/interaxtelephony/default
+		$SUDO_COMMAND ln -s /var/run/alodiga/interaxtelephony/$newversion /var/run/alodiga/interaxtelephony/default
+
+		$SUDO_COMMAND rm /usr/src/alodiga/interaxtelephony/default
+		$SUDO_COMMAND ln -s /usr/src/alodiga/interaxtelephony/$newversion /usr/src/alodiga/interaxtelephony/default
+			
+		echo "******* Version Changed to: $newversion"
+		echo "Next list show if exists symbolic links broken"
+		$SUDO_COMMAND find / -xtype l -name default | grep interaxtelephony
+	else 
+		echo "You have to specify the new version!"
+		echo "Usage: "
+		echo "\t interaxtelephony system changeversion <newversion>"						
+	fi
+	

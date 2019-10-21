@@ -1,0 +1,178 @@
+#!/bin/sh
+
+# test function
+my_test ()
+{
+	echo "All Arguments to function demo(): $*"
+	ret=0
+	return $ret  # Success
+}
+
+
+# calculator
+my_cal ()
+{
+echo "Hola desde la function recibi ${#} parametros... $INTERAX_TELEPHONY_PROCESS_IDS_DIR"
+n1=$1
+op=$2
+n2=$3
+echo " PARAMETROS $n1 $op $n2 "
+ans=0
+if [ $# -eq 3 ]; then
+  ans=$(( $n1 $op $n2 ))
+  echo "$n1 $op $n2 = $ans"
+  return $ans
+else
+  echo "Function cal requires atleast three args"
+fi
+ return
+}
+
+
+# this function receive 2 values
+# fileName, 
+# processName, a string that indicates the process name
+check_process ()
+{
+	export INTERAX_TELEPHONY_CHECK_PROCESS_RV=0
+	if [ ! -d $INTERAX_TELEPHONY_PROCESS_IDS_DIR ] ;
+	then
+	 
+	 	$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_PROCESS_IDS_DIR -p
+	fi
+	
+	if [ $# -eq 2 ]; then
+  		
+  		cd $INTERAX_TELEPHONY_PROCESS_IDS_DIR
+  		PID_FILE=$1
+  		PROCESS_NAME=$2
+  		
+  		
+  		#echo "Parameters received: $* "
+  		
+  		echo "Verifying file $PID_FILE "
+  		if [ ! -s $PID_FILE ] ; then
+			echo "File $PID_FILE doesn't exist or have no data" 
+			echo "Process isn't running"
+  		else
+  			echo "File $PID_FILE exist and have data "
+  			INTERAX_TELEPHONY_PID=`$SUDO_COMMAND cat $PID_FILE`
+  			
+  			
+  			if [ -n "$INTERAX_TELEPHONY_PID" ]; then
+  				echo "Reading from file $PID_FILE, pid: $INTERAX_TELEPHONY_PID "
+  				
+	  			#echo "Voy a ejecutar: ps up $INTERAX_TELEPHONY_PID | grep $PROCESS_NAME | wc -l"
+				#echo ps -p $INTERAX_TELEPHONY_PID | grep $PROCESS_NAME | wc -l
+		
+	    		LINE_NUMBERS=`ps up $INTERAX_TELEPHONY_PID | grep "$PROCESS_NAME" | wc -l`
+	  			
+	  			#echo "Word count found: $LINE_NUMBERS lines"
+	  			
+	  			if [ "$LINE_NUMBERS" -gt "0" ]; then  
+	  				echo "Process $PROCESS_NAME found, it's running with pid $INTERAX_TELEPHONY_PID"	
+	  				export INTERAX_TELEPHONY_CHECK_PROCESS_RV=$INTERAX_TELEPHONY_PID
+	  			else 
+	  				echo "Process $PROCESS_NAME not found, PID is OUT OF DATE, no process will be killed and $PID_FILE will be deleted"
+					$SUDO_COMMAND rm $PID_FILE
+					echo "$PID_FILE deleted"
+	  			fi
+  			else 
+				echo "File $PID_FILE data is corrupted" 
+				$SUDO_COMMAND rm $PID_FILE
+  			fi
+  		fi
+  		return 0
+	else
+  		echo "Function check_process requires 2 args"
+  		export INTERAX_TELEPHONY_CHECK_PROCESS_RV=-1
+  		return -1
+	fi
+}
+
+
+
+# this function receive 3 values
+# appmodule, 
+# app_dir, 
+# app_command,  
+start_app_process ()
+{
+	#echo "All Arguments to function demo(): $*"
+	
+	if [ $# -eq 3 ]; then
+	
+		APPMODULE=$1
+		INTERAX_TELEPHONY_APP_DIR=$2
+		INTERAX_TELEPHONY_APP_COMMAND=$3
+		
+		APPMODULE_PID_FILE="$APPMODULE.pid"
+		#echo "$APPMODULE_PID_FILE"
+		
+		check_process "$APPMODULE_PID_FILE" $APPMODULE
+		RET_VALUE=$INTERAX_TELEPHONY_CHECK_PROCESS_RV
+		#echo "check_process return: $RET_VALUE"
+		if [ "$RET_VALUE" -gt "0" ] ; then
+			echo "$APPMODULE is already running"
+		else 
+			echo "Starting $APPMODULE..."
+			#echo $PWD
+			cd $INTERAX_TELEPHONY_APP_DIR
+			#echo $PWD
+			#echo "$INTERAX_TELEPHONY_APP_COMMAND"
+			
+			eval "$INTERAX_TELEPHONY_APP_COMMAND"
+			
+			TMP_PID="$!" 
+			echo "$APPMODULE Started..."
+			echo $TMP_PID > /tmp/$APPMODULE_PID_FILE
+			$SUDO_COMMAND mv /tmp/$APPMODULE_PID_FILE $INTERAX_TELEPHONY_PROCESS_IDS_DIR/$APPMODULE_PID_FILE
+			
+			# if is necessary check that process truly started, could check again
+			#sleep 3
+		fi 
+	else
+  		echo "Function start_app_process requires 3 args"
+  		return -1
+	fi
+}
+
+# this function receive 3 values
+# appmodule, 
+stop_app_process ()
+{
+	#echo "All Arguments to function demo(): $*"
+	
+	if [ $# -eq 1 ]; then
+	
+		APPMODULE=$1
+		APPMODULE_PID_FILE="$APPMODULE.pid"
+		
+		
+		check_process "$APPMODULE_PID_FILE" $APPMODULE
+		RET_VALUE=$INTERAX_TELEPHONY_CHECK_PROCESS_RV
+		echo "check_process return: $RET_VALUE"
+		if [ "$RET_VALUE" -gt "0" ] ; then
+			
+			#APPMODULE_PID_FILE="$INTERAX_TELEPHONY_PROCESS_IDS_DIR/$APPMODULE_PID_FILE "
+			#INTERAX_TELEPHONY_PID=`$SUDO_COMMAND cat $APPMODULE_PID_FILE`
+			INTERAX_TELEPHONY_PID="$RET_VALUE"
+				
+			echo "Stoping $APPMODULE..."
+			$SUDO_COMMAND kill -9 $INTERAX_TELEPHONY_PID
+			echo "$APPMODULE Stoped..."
+			
+			$SUDO_COMMAND rm $APPMODULE_PID_FILE
+			return 1 
+			
+			# if is necessary check that process truly started, could check again
+			#sleep 3
+		else 
+			echo "$APPMODULE isn't running"
+		fi 
+	else
+  		echo "Function stop_app_process requires 1 arg"
+  		return -1
+	fi
+	
+}

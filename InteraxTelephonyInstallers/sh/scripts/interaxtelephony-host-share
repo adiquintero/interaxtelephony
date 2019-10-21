@@ -1,0 +1,48 @@
+#!/bin/sh
+
+export action=$1
+
+case $action in
+	"set")
+		export SRC_HOST=development.alodiga.com
+		export DST_HOST=$INTERAX_TELEPHONY_HOSTNAME
+	;;
+	
+	"unset")
+		export SRC_HOST=$INTERAX_TELEPHONY_HOSTNAME
+		export DST_HOST=development.alodiga.com
+	;;
+	
+	*) 
+		echo "Unknown host action."
+	;;
+esac
+		
+		
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/callcenter/services/callcenter.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/callcenter/services/callcenter.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/callingcard/services/1_USA_WEBPHONE.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/callingcard/services/1_USA_IVR.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/callingcard/services/1_USA_IVR_DIALER.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/voicetraffic/outgoing/enterprises/wixtel-voicetrafficoutgoingagi.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/voicetraffic/von/enterprises/wixtel-voicetrafficvonagi.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/voicetraffic/forward/enterprises/wixtel-voicetrafficforwardagi.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/voicetraffic/voipforward/enterprises/wixtel-voicetrafficvoipforwardagi.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/did/forward/enterprises/AlodigaPanama-didforwardagi.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/ippbx/outgoing/enterprises/wixtel-ippbxoutgoingagi.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/ippbx/emergency/enterprises/wixtel-ippbxemergencyagi.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/ippbx/von/enterprises/wixtel-ippbxvonagi.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/ippbx/incoming/enterprises/wixtel-ippbxincomingagi.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/ippbx/forward/enterprises/wixtel-ippbxforwardagi.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AGI_SERVER_DIR_CONFIG/agis/ippbx/activation/enterprises/wixtel-ippbxactivationagi.properties
+
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AMI_DIR_CONFIG/amis/callingcard/enterprises/wixtel-callingcardami.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AMI_DIR_CONFIG/amis/voicetraffic/enterprises/wixtel-voicetrafficami.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AMI_DIR_CONFIG/amis/did/enterprises/AlodigaPanama-didami.properties
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $AMI_DIR_CONFIG/amis/ippbx/enterprises/wixtel-ippbxami.properties
+
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/config/ippbxprovisionerthread.properties
+
+$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $INTERAX_TELEPHONY_APPS_DIR/ITSecurityManagerThread/config/itsecuritymanagerthread.properties
+
+#$SUDO_COMMAND $REPLACE_COMMAND $SRC_HOST $DST_HOST -- $INTERAX_TELEPHONY_SRC_DIR/InteraxTelephonyInstallers/installers/kamailio/config/kamailio.cfg

@@ -1,0 +1,55 @@
+#!/bin/sh
+
+target=$1
+
+
+case $target in
+	"asterisk")
+		echo -n "Uninstalling Asterisk...\t"
+		interaxtelephony-server-voice stop
+		$SUDO_COMMAND rm $ASTERISK_DIR -Rf
+		$SUDO_COMMAND rm $ASTERISK_REAL_VARSPOOL_DIR -Rf
+		$SUDO_COMMAND rm $ASTERISK_REAL_LOGS_DIR -Rf
+		$SUDO_COMMAND rm $ASTERISK_REAL_VARLIB_DIR -Rf
+		echo "DONE"
+	;;
+	"glassfish")
+		echo -n "Uninstalling Glassfish...\t"
+		interaxtelephony-server-web stop
+		$SUDO_COMMAND rm $GLASSFISH_DIR -Rf
+		echo "DONE"
+	;;
+	"java")
+		echo -n "Uninstalling Java...\t\t"
+		$SUDO_COMMAND rm $JAVA_DIR -Rf
+		echo "DONE"
+	;;
+	"kamailio")
+		echo -n "Uninstalling Kamailio...\t\t"
+		$SUDO_COMMAND rm $KAMAILIO_DIR -Rf
+		echo "DONE"
+	;;
+	"mysql")
+		echo -n "Uninstalling Mysql...\t\t"
+		interaxtelephony-server-db stop
+		$SUDO_COMMAND rm $MYSQL_DIR -Rf
+		echo "DONE"
+	;;
+	"mysql-sandbox")   #FIXME######## ¿eliminar todos los directorios relacionados a mysql-sandbox? ######
+		echo -n "Uninstalling Mysql Sandbox...\t\t"
+		interaxtelephony-server-db stop
+		$SUDO_COMMAND rm $MYSQL_SANDBOX_DIR -Rf
+		echo "DONE"
+	;;
+	all)
+		interaxtelephony-system-uninstall java
+		interaxtelephony-system-uninstall glassfish
+		interaxtelephony-system-uninstall mysql
+		interaxtelephony-system-uninstall mysql-sandbox
+		interaxtelephony-system-uninstall asterisk
+		interaxtelephony-system-uninstall kamailio
+	;;
+	*)
+		echo "Unknown target module"
+	;;
+esac	

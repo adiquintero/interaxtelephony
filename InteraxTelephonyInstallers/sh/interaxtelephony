@@ -1,0 +1,226 @@
+#!/bin/sh
+
+export PATH=$PATH:$INTERAX_TELEPHONY_SH_DIR/scripts
+
+. interaxtelephony-enviroment
+
+moduletype=$1
+case $moduletype in
+   "app")
+		appaction=$2
+		case $appaction in
+			"clean")
+				appmodule=$3
+				interaxtelephony-app-clean $appmodule
+			;;
+			"deploy")
+				appmodule=$3
+				interaxtelephony-app-deploy $appmodule
+			;;
+			"install")
+				appmodule=$3
+				interaxtelephony-app-install $appmodule
+			;;
+			"redeploy")
+				appmodule=$3
+				interaxtelephony-app-redeploy $appmodule
+			;;
+			"start")
+				appmodule=$3
+				interaxtelephony-app-start $appmodule
+			;;
+			"stop")
+				appmodule=$3
+				interaxtelephony-app-stop $appmodule
+			;;
+			"restart")
+				appmodule=$3
+				interaxtelephony-app-restart $appmodule
+			;;
+            *) 
+				echo "Unknown app action."
+			;;
+		esac
+	;;
+	"default")
+	 	scope=$2
+		case $scope in
+		#	"src")
+		#		action=$3
+		#		interaxtelephony-host-src $action
+		#	;;
+			
+			"share")
+				action=$3
+				action2=$4
+				interaxtelephony-default-share $action $action2 
+			;;
+			
+		*) 
+				echo "Unknown host action."
+			;;
+		esac
+ 	;;
+ 	"config")
+	 	scope=$2
+		case $scope in
+		#	"src")
+		#		action=$3
+		#		interaxtelephony-host-src $action
+		#	;;
+			
+			"share")
+				action=$3
+				src=$4
+				dst=$5
+				interaxtelephony-default-share $action $src $dst 
+			;;
+			
+		*) 
+				echo "Unknown host action."
+		;;
+		esac
+ 	;;
+	"host")
+	 	scope=$2
+		case $scope in
+			"src")
+				action=$3
+				interaxtelephony-host-src $action
+			;;
+			
+			"share")
+				action=$3
+				interaxtelephony-host-share $action
+			;;
+			
+		*) 
+				echo "Unknown host action."
+			;;
+		esac
+ 	;;
+	
+	"server")
+		servertype=$2
+		case $servertype in
+		   "agi")
+				action=$3
+				interaxtelephony-server-agi $action
+			;;
+			"ejb")
+				action=$3
+				interaxtelephony-server-ejb $action
+			;;
+		   "db")
+				action=$3
+				interaxtelephony-server-db $action
+			;;
+		    "linux")
+				action=$3
+				interaxtelephony-server-linux $action
+			;;
+			"voice")
+				action=$3
+				interaxtelephony-server-voice $action
+			;;
+		   "web")
+				action=$3
+				interaxtelephony-server-web $action
+			;;
+			"sipproxy")
+				action=$3
+				interaxtelephony-server-sipproxy $action
+			;;
+						
+		   *) 
+				echo "Unknown server type."
+			;;
+		esac
+	;;
+		
+		
+   "web")
+		webaction=$2
+		echo "AS_ADMIN_PASSWORD=$GLASSFISH_PASSWORD" > $GLASSFISH_PASSWORD_FILE
+		case $webaction in
+                        "copy")
+                                webmodule=$3
+                                websection=$4
+                                interaxtelephony-web-copy $webmodule $websection
+                        ;;
+                        "deploy")
+                                webmodule=$3
+                                interaxtelephony-web-deploy $webmodule
+                        ;;
+                        "redeploy")
+                                webmodule=$3
+                                interaxtelephony-web-redeploy $webmodule
+                        ;;
+                        "reload")
+                                webmodule=$3
+                                interaxtelephony-web-reload $webmodule
+                        ;;
+                        "undeploy")
+                                webmodule=$3
+                                interaxtelephony-web-undeploy $webmodule
+                        ;;
+		   *) 
+				echo "Unknown web action."
+			;;
+		esac
+		rm $GLASSFISH_PASSWORD_FILE
+	;;
+
+
+ 	"system")
+		appaction=$2
+		case $appaction in
+			
+			"changeversion")
+				action=$3
+				interaxtelephony-system-changeversion $action
+			;;
+		
+		
+		   "configure")
+				action=$3
+				section=$4
+				interaxtelephony-system-configure $action $section
+			;;
+			
+			"install")
+				action=$3
+				interaxtelephony-system-install $action
+			;;
+			
+			"restart")
+				action=$3
+				interaxtelephony-system-stop $action
+				interaxtelephony-system-start $action
+			;;
+
+			"start")
+ 				action=$3
+ 				interaxtelephony-system-start $action
+			;;
+
+			"stop")
+				action=$3
+				interaxtelephony-system-stop $action
+			;;
+
+
+			"uninstall")
+				action=$3
+				interaxtelephony-system-uninstall $action
+			;;
+			
+		   *) 
+				echo "Unknown configure action."
+			;;
+		esac
+	;;	
+   *) 
+		echo "Unknown module type."
+	;;
+esac

@@ -1,0 +1,50 @@
+#!/bin/sh
+
+. interaxtelephony-functions
+
+appmodule=$1
+case $appmodule in
+    
+	"CallingCardAmi")
+		start_app_process $appmodule "$AMI_DIR" "$SUDO_COMMAND $JAVA_COMMAND -classpath $CALLING_CARD_AMI_CLASSPATH com.interax.telephony.service.ami.callingcard.CallingCardAmi &"
+
+	;;
+
+    "IpPbxAmi")
+		start_app_process $appmodule "$AMI_DIR" "$SUDO_COMMAND $JAVA_COMMAND -classpath $IP_PBX_AMI_CLASSPATH com.interax.telephony.service.ami.ippbx.IpPbxAmi &"
+	;;
+	
+	"IpPbxProvisionerThread")
+		start_app_process $appmodule "$INTERAX_TELEPHONY_APPS_DIR/$appmodule" "$SUDO_COMMAND $JAVA_COMMAND -classpath $IP_PBX_PROVISIONER_THREAD_CLASSPATH IpPbxProvisionerThread &"
+	;;
+	
+	"ITSecurityManagerThread")
+		start_app_process $appmodule "$INTERAX_TELEPHONY_APPS_DIR/$appmodule" "$SUDO_COMMAND $JAVA_COMMAND -classpath $IT_SECURITY_MANAGER_THREAD_CLASSPATH ITSecurityManagerThread &"
+	;;
+
+	"VoiceTrafficAmi")
+		start_app_process $appmodule "$AMI_DIR" "$SUDO_COMMAND $JAVA_COMMAND -classpath $VOICE_TRAFFIC_AMI_CLASSPATH com.interax.telephony.service.ami.voicetraffic.VoiceTrafficAmi &"
+	;;
+	
+	"DidAmi")
+		start_app_process $appmodule "$AMI_DIR" "$SUDO_COMMAND $JAVA_COMMAND -classpath $DID_AMI_CLASSPATH com.interax.telephony.service.ami.did.DidAmi &"
+	;;
+	
+	"PickDialingAmi")
+		start_app_process $appmodule "$AMI_DIR" "$SUDO_COMMAND $JAVA_COMMAND -classpath $PICK_DIALING_AMI_CLASSPATH com.interax.telephony.service.ami.pickdialing.PickDialingAmi &"
+	;;
+	   
+   "all")
+		interaxtelephony-app-start CallingCardAmi
+		interaxtelephony-app-start IpPbxAmi
+		interaxtelephony-app-start IpPbxProvisionerThread
+		interaxtelephony-app-start ITSecurityManagerThread
+		interaxtelephony-app-start VoiceTrafficAmi
+		interaxtelephony-app-start DidAmi
+		interaxtelephony-app-start PickDialingAmi
+	;;
+	
+   *) 
+	echo "Unknown stand alone module."
+	;;
+esac

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CopyEJBJARs" default="default" basedir=".">
+   <target name="-post-dist">
+      <property name="deploy.folder" value="../InteraxTelephonyInstallers/lib/interaxtelephony"/>
+      <echo message="Copying ${dist.jar} to ${deploy.folder}..."/>
+
+      <mkdir dir="${deploy.folder}"/>
+
+      <copy todir="${deploy.folder}" overwrite="true" flatten="true">
+            <path>
+                <pathelement path="${dist.jar}"/>
+            </path>
+        </copy>
+   </target>
+</project>

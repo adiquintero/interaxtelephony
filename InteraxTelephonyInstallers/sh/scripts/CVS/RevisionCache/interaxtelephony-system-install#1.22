@@ -1,0 +1,202 @@
+
+
+#!/bin/sh
+
+target=$1
+case $target in
+
+	"asterisk-dev")
+		cd $ASTERISK_INSTALLER_DIR
+		cd $ASTERISK_INSTALLER_FOLDER
+		make
+		$SUDO_COMMAND make install exec_prefix=$ASTERISK_DIR prefix=$ASTERISK_DIR
+	;;
+
+	"asterisk")
+		echo "Installing Asterisk...\t"
+		cd $ASTERISK_INSTALLER_DIR
+		tar xvzf $ASTERISK_INSTALLER_FILE
+		cd $ASTERISK_INSTALLER_FOLDER
+		$SUDO_COMMAND cp $ASTERISK_INSTALLER_DIR/modified/* . -Rf
+		
+		./configure exec_prefix=$ASTERISK_DIR prefix=$ASTERISK_DIR
+		make
+		$SUDO_COMMAND make install exec_prefix=$ASTERISK_DIR prefix=$ASTERISK_DIR
+		$SUDO_COMMAND make samples
+
+# DEPRECATED. USAR EL SYSTEM CONFIG ASTERISK
+#		$SUDO_COMMAND echo '' > /tmp/interaxtelephonyDummyFile
+#		sed '/astetcdir => /c\astetcdir => '$ASTERISK_DIR'/etc/asterisk' /etc/asterisk/asterisk.conf > /tmp/interaxtelephonyDummyFile
+#		sed '/astmoddir => /c\astmoddir => '$ASTERISK_DIR'/lib/asterisk/modules' /tmp/interaxtelephonyDummyFile > /tmp/asterisk.conf
+#		sed '/astdatadir => /c\astdatadir => '$ASTERISK_DIR'/var/lib' /tmp/interaxtelephonyDummyFile > /tmp/asterisk.conf
+#		sed '/astagidir => /c\astagidir => '$ASTERISK_DIR'/var/lib/agi-bin' /tmp/asterisk.conf > /tmp/interaxtelephonyDummyFile
+#		sed '/astvarlibdir => /c\astvarlibdir => '$ASTERISK_DIR'/var/lib' /tmp/interaxtelephonyDummyFile > /tmp/asterisk.conf
+#		sed '/astspooldir => /c\astspooldir => '$ASTERISK_DIR'/var/spool' /tmp/interaxtelephonyDummyFile > /tmp/asterisk.conf
+#		sed '/astrundir => /c\astrundir => '$ASTERISK_DIR'/var/run' /tmp/asterisk.conf > /tmp/interaxtelephonyDummyFile
+#		sed '/astlogdir => /c\astlogdir => '$ASTERISK_DIR'/var/log/' /tmp/interaxtelephonyDummyFile > /tmp/asterisk.conf
+#		sed '/astdatadir => /c\astdatadir => '$ASTERISK_DIR'/var/lib' /tmp/interaxtelephonyDummyFile > /tmp/asterisk.conf
+#		$SUDO_COMMAND cp /tmp/asterisk.conf /etc/asterisk/asterisk.conf
+		
+#		$SUDO_COMMAND mkdir -p $ASTERISK_DIR/etc/asterisk
+#		$SUDO_COMMAND mkdir -p $ASTERISK_DIR/var/lib/asterisk
+		$SUDO_COMMAND mkdir -p $ASTERISK_DIR/lib/asterisk/modules	
+#		$SUDO_COMMAND mkdir -p $ASTERISK_DIR/var/lib/asterisk/agi-bin
+#		$SUDO_COMMAND mkdir -p $ASTERISK_DIR/var/spool/asterisk
+		$SUDO_COMMAND mkdir -p $ASTERISK_DIR/var/run
+#		$SUDO_COMMAND mkdir -p $ASTERISK_DIR/var/log/asterisk
+		
+		
+		# VAR-LIB
+		$SUDO_COMMAND mkdir $ASTERISK_REAL_VARLIB_DIR -p
+		$SUDO_COMMAND mv /var/lib/asterisk/* $ASTERISK_REAL_VARLIB_DIR/
+		$SUDO_COMMAND rm /var/lib/asterisk -Rf
+		$SUDO_COMMAND ln -s $ASTERISK_REAL_VARLIB_DIR $ASTERISK_VARLIB_DIR
+		
+		# ETC
+		$SUDO_COMMAND mkdir $ASTERISK_DIR/etc/asterisk -p
+		$SUDO_COMMAND mv /etc/asterisk/* $ASTERISK_DIR/etc/asterisk/
+		$SUDO_COMMAND rm /etc/asterisk -Rf
+		
+		# VAR-LOG
+		$SUDO_COMMAND mkdir $ASTERISK_INTERAX_TELEPHONY_LOGS_DIR -p
+		$SUDO_COMMAND mkdir $ASTERISK_REAL_LOGS_DIR -p
+		$SUDO_COMMAND mv /var/log/asterisk/* $ASTERISK_REAL_LOGS_DIR/
+		$SUDO_COMMAND rm /var/log/asterisk/ -Rf
+		$SUDO_COMMAND ln -s   $ASTERISK_REAL_LOGS_DIR $ASTERISK_LOGS_DIR
+		
+		# VAR-SPOOL
+		$SUDO_COMMAND mkdir $ASTERISK_REAL_VARSPOOL_DIR -p
+		$SUDO_COMMAND mv /var/spool/asterisk/* $ASTERISK_REAL_VARSPOOL_DIR/
+		$SUDO_COMMAND rm /var/spool/asterisk/ -Rf
+		$SUDO_COMMAND ln -s  $ASTERISK_REAL_VARSPOOL_DIR $ASTERISK_VARSPOOL_DIR
+		
+		$SUDO_COMMAND cp $ASTERISK_INSTALLER_G729_CODEC_FILE $ASTERISK_DIR/lib/asterisk/modules/
+		
+		#$SUDO_COMMAND rm $ASTERISK_INSTALLER_DIR/$ASTERISK_INSTALLER_FOLDER -Rf
+		
+		echo "DONE"
+	;;
+	
+	"glassfish")
+		echo -n "Installing Glassfish...\t"
+		case $GLASSFISH_VERSION in
+			"2.1")
+				cd $GLASSFISH_INSTALLER_DIR
+				$SUDO_COMMAND rm $GLASSFISH_INSTALLER_FOLDER -Rf
+				$JAVA_COMMAND -Xmx256m -jar $GLASSFISH_INSTALLER_FILE
+				$SUDO_COMMAND rm $GLASSFISH_DIR -Rf
+				$SUDO_COMMAND mv $GLASSFISH_INSTALLER_FOLDER $GLASSFISH_DIR
+				cd $GLASSFISH_DIR
+				$SUDO_COMMAND chmod +x lib/ant/bin/ant
+				lib/ant/bin/ant -f setup.xml
+			;;
+			"3.1.2")
+				cd $GLASSFISH_INSTALLER_DIR
+				$SUDO_COMMAND rm $GLASSFISH_INSTALLER_FOLDER -Rf
+				$SUDO_COMMAND unzip $GLASSFISH_INSTALLER_FILE
+				$SUDO_COMMAND rm $GLASSFISH_DIR -Rf
+				$SUDO_COMMAND mv $GLASSFISH_INSTALLER_FOLDER $GLASSFISH_DIR
+				cd $GLASSFISH_DIR
+				$SUDO_COMMAND chmod +x lib/ant/bin/ant
+				lib/ant/bin/ant -f setup.xml
+			;;
+		esac	
+		echo "DONE"
+	;;
+	
+	"java")
+		echo -n "Installing Java...\t\t"
+		cd $JAVA_INSTALLER_DIR
+		$SUDO_COMMAND rm $JAVA_INSTALLER_FOLDER -Rf
+		$SUDO_COMMAND chmod +x $JAVA_INSTALLER_FILE
+		./$JAVA_INSTALLER_FILE
+		$SUDO_COMMAND mv $JAVA_INSTALLER_FOLDER $JAVA_DIR
+		echo "DONE"
+	;;
+	
+	"kamailio")
+	   	cd $KAMAILIO_INSTALLER_DIR
+		tar xvzf $KAMAILIO_INSTALLER_FILE 
+	    cp $KAMAILIO_INSTALLER_DIR/modified/* $KAMAILIO_INSTALLER_DIR/$KAMAILIO_INSTALLER_FOLDER -Rf
+	    cd $KAMAILIO_INSTALLER_FOLDER
+	    $SUDO_COMMAND mkdir $KAMAILIO_DIR
+		make prefix=$KAMAILIO_DIR include_modules="db_mysql presence presence_xml" modules
+		$SUDO_COMMAND make install prefix=$KAMAILIO_DIR
+		cd $KAMAILIO_DIR/share/kamailio/
+		rm $KAMAILIO_INSTALLER_DIR/$KAMAILIO_INSTALLER_FOLDER -Rf
+	;;
+	
+	"mysql")
+		echo -n "Installing Mysql...\t\t"
+		export PATH=$MYSQL_SANDBOX_DIR/usr/local/bin:$PATH
+   		export PERL5LIB=$MYSQL_SANDBOX_DIR/usr/local/share/perl/$PERL_VERSION:$MYSQL_SANDBOX_DIR/usr/local/lib/perl5/site_perl/$PERL_VERSION
+		$SUDO_COMMAND mkdir $MYSQL_DIR/base -p
+		$SUDO_COMMAND cp $MYSQL_INSTALLER_DIR/$MYSQL_BIN_INSTALLER_FILE $MYSQL_DIR/base/$MYSQL_BIN_INSTALLER_FILE 
+        cd $MYSQL_SANDBOX_DIR/usr/local/bin
+        #TODO: UTILIZAR MY-INTERAX_TELEPHONY.CNF CON TWEAKS INCLUIDOS
+		$SUDO_COMMAND env PERL5LIB=$PERL5LIB PATH=$PATH ./make_sandbox $MYSQL_DIR/base/$MYSQL_BIN_INSTALLER_FILE --upper_directory $INTERAX_TELEPHONY_SERVERS_DIR -d mysql -P $DB_PORT -u $DB_ROOT_USER -p $DB_ROOT_PASSWORD  --prompt_prefix 'telephony-mysql' --prompt_body '\>' --no_confirm --force
+		interaxtelephony server db stop
+		
+		$SUDO_COMMAND mkdir $MYSQL_INTERAX_TELEPHONY_VAR_DIR -p
+		$SUDO_COMMAND rm $MYSQL_REAL_DATA_DIR -Rf
+		$SUDO_COMMAND mv $MYSQL_DATA_DIR $MYSQL_REAL_DATA_DIR
+		$SUDO_COMMAND ln -s $MYSQL_REAL_DATA_DIR $MYSQL_DATA_DIR
+		
+		$SUDO_COMMAND ln -s $MYSQL_DIR/base/$MYSQL_VERSION/include $INTERAX_TELEPHONY_INCLUDE_DIR/mysql
+				
+		interaxtelephony server db start
+		echo "DONE"
+	;;
+	
+	"mysql-no-sandbox")
+		interaxtelephony server db stop
+#		interaxtelephony system uninstall mysql
+#		interaxtelephony system uninstall mysql-sandbox
+		sudo rm /var/lib/mysql/mysql.sock
+		sudo killall -e -9 mysql
+		$SUDO_COMMAND rm -Rf /usr/local/mysql*
+		$SUDO_COMMAND rm -Rf $MYSQL_INSTALLER_DIR/$MYSQL_INSTALLER_FOLDER_NAME
+		cd $MYSQL_INSTALLER_DIR
+		$SUDO_COMMAND tar zxvf $MYSQL_BIN_INSTALLER_FILE
+		cd /usr/local	 
+		$SUDO_COMMAND ln -s $MYSQL_INSTALLER_DIR/$MYSQL_INSTALLER_FOLDER_NAME mysql
+		cd mysql
+		$SUDO_COMMAND mkdir -p /var/log/mysql/
+		$SUDO_COMMAND scripts/mysql_install_db --user=$DB_ROOT_USER --basedir=/usr/local/mysql		
+		$SUDO_COMMAND cp $MYSQL_INSTALLER_DIR/my.cnf /etc/mysql/my.cnf
+		interaxtelephony server db start
+	;;
+
+	"mysql-sandbox")
+	
+		echo -n "Installing Mysql Sandbox...\t\t"
+		cd $MYSQL_SANDBOX_INSTALLER_DIR
+		tar xvzf $MYSQL_SANDBOX_INSTALLER_FILE
+		cd $MYSQL_SANDBOX_INSTALLER_FOLDER
+		
+		$SUDO_COMMAND mkdir $MYSQL_SANDBOX_DIR
+		export PATH=$MYSQL_SANDBOX_DIR/usr/local/bin:$PATH
+   		export PERL5LIB=$MYSQL_SANDBOX_DIR/usr/local/share/perl/$PERL_VERSION:$MYSQL_SANDBOX_DIR/usr/local/lib/perl5/site_perl/$PERL_VERSION
+   		$SUDO_COMMAND perl Makefile.PL PREFIX=$MYSQL_SANDBOX_DIR/usr/local
+		
+		make
+		make test
+		$SUDO_COMMAND make install
+		cd ..
+		rm $MYSQL_SANDBOX_INSTALLER_FOLDER -Rf
+		echo "DONE"
+	;;
+
+	all)
+		interaxtelephony system install java
+		interaxtelephony system install glassfish
+		interaxtelephony system install mysql-sandbox
+		interaxtelephony system install mysql
+		interaxtelephony system install asterisk
+		interaxtelephony system install kamailio
+	;;
+
+	*)
+		echo "Unknown target module"
+	;;
+esac

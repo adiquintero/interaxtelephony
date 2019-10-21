@@ -1,0 +1,160 @@
+#!/bin/bash
+
+action=$1
+case $action in
+
+   "createdirs")
+		$SUDO_COMMAND mkdir $INTERAX_LIBRARIES_LOGS_DIR -p
+
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_BASE_DIR -p
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_SERVERS_DIR -p
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR -p
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_LIBS_DIR -p
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_WARS_DIR -p
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_LOGS_DIR -p
+		
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_VAR_DIR -p
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_SOUNDS_DIR -p
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_PROCESS_IDS_DIR -p
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_INCLUDE_DIR -p
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_RUN_DIR -p
+		
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_LIBS_DIR/thirdparty
+
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/InteraxTelephonyAMIs/
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/InteraxTelephonyAMIs/backup
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/InteraxTelephonyAMIs/config
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/InteraxTelephonyAMIs/bin
+		$SUDO_COMMAND ln -s $INTERAX_TELEPHONY_LIBS_DIR $INTERAX_TELEPHONY_APPS_DIR/InteraxTelephonyAMIs/lib
+		
+		#$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/InteraxTelephonyAMIs/bin/com/interax/telephony/service/ami/ippbx -p
+		#$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/InteraxTelephonyAMIs/config/amis/ippbx -p
+		#$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/InteraxTelephonyAMIs/bin/com/interax/telephony/service/ami/callingcard -p
+		#$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/InteraxTelephonyAMIs/config/amis/callingcard -p
+		
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/backup
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/bin
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/config
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/encrypters
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/extra
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/firmware
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/xslt
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/xml
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/xml/error
+		$SUDO_COMMAND ln -s $INTERAX_TELEPHONY_LIBS_DIR $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/lib
+		
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/ITSecurityManagerThread/
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/ITSecurityManagerThread/backup
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/ITSecurityManagerThread/bin
+		$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_APPS_DIR/ITSecurityManagerThread/config
+		$SUDO_COMMAND ln -s $INTERAX_TELEPHONY_LIBS_DIR $INTERAX_TELEPHONY_APPS_DIR/ITSecurityManagerThread/lib
+				
+		$SUDO_COMMAND mkdir $AGI_SERVER_DIR
+		$SUDO_COMMAND mkdir $AGI_SERVER_DIR/bin
+		$SUDO_COMMAND mkdir $AGI_SERVER_DIR/config
+		$SUDO_COMMAND mkdir $AGI_SERVER_DIR/backup
+		$SUDO_COMMAND ln -s $INTERAX_TELEPHONY_LIBS_DIR $AGI_SERVER_DIR/lib
+		
+		
+		$SUDO_COMMAND mkdir $EJB_SERVER_DIR
+		$SUDO_COMMAND mkdir $EJB_SERVER_DIR/config
+	
+		
+		
+		echo "DONE"
+	;;
+	
+   "deletedirs")
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_BASE_DIR -Rf
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_LOGS_DIR -Rf
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_VAR_DIR -Rf
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_PROCESS_IDS_DIR -Rf
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_INCLUDE_DIR -Rf
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_RUN_DIR -Rf
+		#$SUDO_COMMAND rm $AGI_SERVER_DIR -Rf
+		
+		echo "DONE"
+	;;
+		
+    "copylibs")
+   		interaxtelephony server linux updatelibs
+	;;
+
+   	"updateinteraxtelephonylib")
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/$2.jar -f
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_INSTALLER_DIR/lib/interaxtelephony/$2.jar $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony
+
+	;;
+   	
+   "updatelibs")
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/*.jar -f
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_LIBS_DIR/thirdparty/*.jar -f
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_INSTALLER_DIR/lib/interaxtelephony/*.jar $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony -f
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_INSTALLER_DIR/lib/thirdparty/*.jar $INTERAX_TELEPHONY_LIBS_DIR/thirdparty -f
+	;;
+	
+	"updatebaselibs")
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteraxLibraries.jar -f
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteraxTelephonyCommons.jar -f
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteraxTelephonyDataManagers.jar -f
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_INSTALLER_DIR/lib/interaxtelephony/InteraxLibraries.jar $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_INSTALLER_DIR/lib/interaxtelephony/InteraxTelephonyCommons.jar $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_INSTALLER_DIR/lib/interaxtelephony/InteraxTelephonyDataManagers.jar $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony
+	;;
+	
+	"copywars")
+   		interaxtelephony server linux updatewars
+   	;;
+   	
+   "updatewars")
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_WARS_DIR/*.war -f
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_LIBS_DIR/war/*.war $INTERAX_TELEPHONY_WARS_DIR
+	;;
+	# ---------- DEPRECATED --------------
+	
+	"convertaudios")
+	
+		function parse_lines() {
+		  for line in $lines; do
+		    if ( echo $line | grep ":" >>/dev/null ) && !( echo $line | grep "CVS" >>/dev/null ); then
+		      len=${#line}
+		      len=$((len-2))
+		      dir=$(echo ${line:1:$len})
+		      completeDestinyDir=$destinyPath$dir
+		      #echo "COMPLETE DIR: "$completeDir
+		      mkdir -p $completeDestinyDir
+		      completeOriginDir=$originPath$dir
+		    fi
+		
+		    if( echo $line | grep "\.wav" >>/dev/null ); then
+		      val=${line%.wav}
+		      echo "** Converting file $val"
+		      sox "$completeOriginDir/$line" -c1 -r8000 /tmp/$line
+		      sudo rasterisk -x "file convert /tmp/$val.wav $completeDestinyDir/$val.g729"
+		      echo "Done"
+		      #echo "WAV FILE OF: "$completeDir
+		    fi
+		  done
+		}
+		
+		sudo asterisk
+		sleep 3
+		cd $INTERAX_TELEPHONY_SOUNDS_DIR
+		sudo rm -Rf g729
+		cd wav
+		originPath="$(pwd)"
+		lines="$(ls -1R)"
+		cd ..
+		mkdir g729
+		cd g729
+		destinyPath="$(pwd)"
+		parse_lines $lines
+	
+	;;
+	
+   *) 
+		echo "Unknown linux-server action."
+	;;
+esac

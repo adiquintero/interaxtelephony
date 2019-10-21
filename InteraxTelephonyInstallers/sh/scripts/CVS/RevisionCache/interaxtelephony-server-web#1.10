@@ -1,0 +1,72 @@
+#!/bin/sh
+
+action=$1
+case $action in
+
+   "createliblinks")
+   		cd $GLASSFISH_DOMAIN_DIR/lib
+
+		$SUDO_COMMAND ln -s $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteraxLibraries.jar interaxtelephony_lib_InteraxLibraries.jar
+		$SUDO_COMMAND ln -s $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteraxTelephonyCommons.jar interaxtelephony_lib_InteraxTelephonyCommons.jar
+		$SUDO_COMMAND ln -s $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteraxTelephonyDataManagers.jar interaxtelephony_lib_InteraxTelephonyDataManagers.jar
+		$SUDO_COMMAND ln -s $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteraxTelephonySecurityEJB.jar interaxtelephony_lib_InteraxTelephonySecurityEJB.jar
+	;;
+	
+   "createtplinks")
+   		expresion=*.jar
+		cd $INTERAX_TELEPHONY_LIBS_DIR/thirdparty/
+		for i in ls $expresion
+		do
+			if test $i != 'ls'
+			then
+			$SUDO_COMMAND ln -s $INTERAX_TELEPHONY_LIBS_DIR/thirdparty/$i $GLASSFISH_DOMAIN_DIR/lib/interaxtelephony_tp_$i
+				
+			fi
+		done
+	;;
+
+	"removeliblinks")
+		cd $GLASSFISH_DOMAIN_DIR/lib
+		$SUDO_COMMAND rm interaxtelephony_lib_*.jar
+	;;
+	
+	"removetplinks")
+		cd $GLASSFISH_DOMAIN_DIR/lib
+		$SUDO_COMMAND rm interaxtelephony_tp_*.jar
+	;;
+	
+   "restart")
+		interaxtelephony-server-web stop
+		interaxtelephony-server-web start
+	;;
+
+   "start")
+		$SUDO_COMMAND $AS_ADMIN_COMMAND start-domain $GLASSFISH_DOMAIN_NAME
+		$SUDO_COMMAND ps ux | awk '/'$GLASSFISH_DOMAIN_NAME'/ && !/awk/ {print $2}' > /tmp/glassfish.pid 
+		if [ ! -d $INMERX_PROCESS_IDS_DIR ] ;
+		then
+		 	echo "Creating $INTERAX_TELEPHONY_PROCESS_IDS_DIR directory"
+			$SUDO_COMMAND mkdir $INTERAX_TELEPHONY_PROCESS_IDS_DIR -p
+		fi
+		$SUDO_COMMAND mv /tmp/glassfish.pid $GLASSFISH_PID_FILE
+	;;
+
+   "stop")
+		$SUDO_COMMAND $AS_ADMIN_COMMAND stop-domain $GLASSFISH_DOMAIN_NAME
+   		$SUDO_COMMAND rm $GLASSFISH_PID_FILE
+	;;
+	
+   "updateliblinks")
+   		interaxtelephony-server-web removeliblinks
+   		interaxtelephony-server-web createliblinks
+   ;;
+   
+   "updatetplinks")
+   		interaxtelephony-server-web removetpliblinks
+   		interaxtelephony-server-web createtpliblinks
+   ;;
+	
+	 *) 
+		echo "Unknown web-server action."
+	;;
+esac

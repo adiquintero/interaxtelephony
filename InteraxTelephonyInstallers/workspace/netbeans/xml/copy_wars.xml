@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CopyWARs" default="default" basedir=".">
+   <target name="-post-dist">
+      <property name="deploy.folder" value="../InteraxTelephonyInstallers/war"/>
+      <echo message="Copying ${dist.war} to ${deploy.folder}..."/>
+
+      <mkdir dir="${deploy.folder}"/>
+
+      <copy todir="${deploy.folder}" overwrite="true" flatten="true">
+            <path>
+                <pathelement path="${dist.war}"/>
+            </path>
+        </copy>
+   </target>
+</project> 

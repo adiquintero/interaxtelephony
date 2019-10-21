@@ -1,0 +1,19 @@
+Este archivo tiene la finalidad de explicar como hacer exportaciones de war's y jar's a una misma carpeta.
+
+1. Abrir proyecto deseado utilizando la visualizacion llamada Files
+2. Abrir el archivo build.xml
+3. Antes de la etiqueta <import file="nbproject/build-impl.xml"/> añadir:
+
+    a) Si la aplicacion WEB (genera un war)
+        <import file="../InteraxTelephonyInstallers/workspace/netbeans/xml/copy_wars.xml"/>
+    b) Si la aplicacion es JAVA (genera un jar)
+        <import file="../InteraxTelephonyInstallers/workspace/netbeans/xml/copy_jars.xml"/>
+    c) Si la aplicacion es un EJB (genera un war)
+        <import file="../InteraxTelephonyInstallers/workspace/netbeans/xml/copy_jars_ejb.xml"/>
+
+Con esto, luego de que se ejecuta un build o un clean & build, automaticamente se generara el jar o war dentro de la carpeta:
+
+    Para los jar's y jar de EJB's:
+        <WORKSPACE_DIR>/InteraxTelephonyInstallers/lib/sisac
+    Para los war de Aplicaciones Web:
+        <WORKSPACE_DIR>/InteraxTelephonyInstallers/war

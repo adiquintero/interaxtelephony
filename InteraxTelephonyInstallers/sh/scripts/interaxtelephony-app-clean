@@ -1,0 +1,38 @@
+#!/bin/sh
+
+appmodule=$1
+case $appmodule in
+	"InteraxTelephonyAmi")
+		$SUDO_COMMAND rm $AMI_DIR/backup/* -Rf
+	    echo DONE
+	;;
+#  "CallingCardAmi")
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/CallingCardAMI/backup/* -Rf
+#	;;
+#   "DidAmi")
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/DidAMI/backup/* -Rf
+#	;;
+#   "IpPbxAmi")
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/IpPbxAMI/backup/* -Rf
+#	;;
+   "IpPbxProvisionerThread")
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/backup/* -Rf
+	;;
+    "ITSecurityManagerThread")
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/ITSecurityManagerThread/backup/* -Rf
+	;;
+#    "VoiceTrafficAmi")
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/VoiceTrafficAMI/backup/* -Rf
+#	;;
+#   "all")
+#   		INTERAX_TELEPHONY-app-clean CallingCardAMI
+#   		INTERAX_TELEPHONY-app-clean IpPbxAMI
+#   		INTERAX_TELEPHONY-app-clean IpPbxProvisionerThread
+#            INTERAX_TELEPHONY-app-clean ITSecurityManagerThread
+#   		INTERAX_TELEPHONY-app-clean VoiceTrafficAMI
+#   		INTERAX_TELEPHONY-app-clean DidAMI
+#	;;
+   *) 
+	echo "Unknown stand alone module."
+	;;
+esac

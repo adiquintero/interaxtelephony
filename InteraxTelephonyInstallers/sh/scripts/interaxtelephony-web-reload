@@ -1,0 +1,51 @@
+#!/bin/sh
+
+webmodule=$1
+case $webmodule in
+   "CallingCardEJB")
+                echo reloading $webmodule...
+		$SUDO_COMMAND touch $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/CallingCardEJB/.reload
+	;;
+	"DIDEJB")
+                echo reloading $webmodule...
+		$SUDO_COMMAND touch $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/DIDEJB/.reload
+	;;
+   "InteraxTelephonyEJB")
+                echo reloading $webmodule...
+		$SUDO_COMMAND touch $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/InteraxTelephonyEJB/.reload
+	;;
+   "InteraxTelephonySecurityEJB")
+                echo reloading $webmodule...
+		$SUDO_COMMAND touch $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/InteraxTelephonySecurityEJB/.reload
+	;;
+   "IpPbxEJB")
+                echo reloading $webmodule...
+		$SUDO_COMMAND touch $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/IpPbxEJB/.reload
+	;;
+   "InteractiveVoiceResponseEJB")
+                echo reloading $webmodule...
+		$SUDO_COMMAND touch $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/InteractiveVoiceResponseEJB/.reload
+	;;
+   "PickDialingEJB")
+                echo reloading $webmodule...
+		$SUDO_COMMAND touch $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/PickDialingEJB/.reload
+	;;
+   "VoiceTrafficEJB")
+                echo reloading $webmodule...
+		$SUDO_COMMAND touch $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/VoiceTrafficEJB/.reload
+	;;
+  "all")
+   		interaxtelephony-web-reload DIDEJB
+   		interaxtelephony-web-reload CallingCardEJB
+   		interaxtelephony-web-reload InteraxTelephonyEJB
+   		interaxtelephony-web-reload InteraxTelephonySecurityEJB
+   		interaxtelephony-web-reload IpPbxEJB
+   		interaxtelephony-web-reload InteractiveVoiceResposeEJB
+        interaxtelephony-web-reload PickDialingEJB
+   		interaxtelephony-web-reload VoiceTrafficEJB
+                echo "reload all done!"
+	;;
+   *) 
+		echo "Unknown web module."
+	;;
+esac

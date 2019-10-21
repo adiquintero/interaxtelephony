@@ -1,0 +1,30 @@
+Versión 3.5
+
+BUGS
+
+NUEVA IMPLEMENTACION*************************************
+
+DATABASE
+
+    - Agregada nueva columna "enabled" en la tabla "it_did" que indica si el número está habilitado o no
+    - Agregada nueva columna "login" en la tabla "vt_peer" que indica si el número está habilitado o no
+    - Agregada estructura it_provider, it_provider_peer, it_outgoing_route, it_outgoing_route_step.
+    - Agregado campo login en base de datos vt_peer
+    - Se agregarón los procedures necesarios para las rutas salientes.
+
+CallingCardAGI
+
+    - Nueva funcionalidad para manejo de restricciones de números de acceso
+
+DisabledDnAGI
+
+    - AGI creado para el manejo de restricciones de números de acceso
+
+BalanceRechargeAGI
+
+    - AGI creado para la gestión de recarga de saldo de pines y contratos
+    
+    
+IpPbxEJB	
+	- Se agrego archivo .properties para la configuración de IpPbxEJB y las clases manager esta configuración. 
+

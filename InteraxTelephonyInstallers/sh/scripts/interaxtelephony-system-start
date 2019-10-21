@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "\n Starting SERVERS... " 
+interaxtelephony server db start
+interaxtelephony server web start
+interaxtelephony server voice start
+interaxtelephony server sipproxy start
+interaxtelephony server agi start
+echo "\n Servers Started... "
+
+echo "\n Starting APPS... "
+interaxtelephony app start all
+echo "\n APPS Started... "

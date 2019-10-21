@@ -1,0 +1,34 @@
+#!/bin/sh
+
+. interaxtelephony-functions
+
+action=$1
+case $action in
+   	"start")
+		start_app_process "InteraxTelephonyAgiServer" "$AGI_SERVER_DIR" "$SUDO_COMMAND $JAVA_COMMAND $AGI_SERVER_JVM_OPTS -Djava.rmi.server.codebase='$AGI_SERVER_CODEBASE' -classpath $AGI_SERVER_CLASSPATH com.interax.telephony.server.agi.InteraxTelephonyAgiServer &"
+	;;
+   	"stop")
+		stop_app_process "InteraxTelephonyAgiServer"
+   		echo "Stop agi server."
+	;;
+   	"restart")
+		interaxtelephony-server-agi stop
+		interaxtelephony-server-agi start
+	;;
+   	"updateconfig")
+		echo -n "WARNING: IF YOU ARE IN DEVELOPMENT, PLEASE COPY THE CONFIG FILES TO INSTALLERS, OTHERWISE THE CONFIG WON'T UPDATE."
+   	    $SUDO_COMMAND rm $AGI_SERVER_DIR/config/* -Rf
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/InteraxTelephonyAGIServer/config/* $AGI_SERVER_DIR/config/ -Rf
+	;;
+	"updateimpl")
+		$SUDO_COMMAND rm $AGI_SERVER_DIR/bin/* -Rf
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/InteraxTelephonyAGIServer/build/* $AGI_SERVER_DIR/bin/ -Rf
+	;;
+	"updateserver")
+		interaxtelephony-server-agi updateimpl
+		interaxtelephony-server-agi updateconfig
+	;;
+   *) 
+		echo "Unknown agi-server action."
+	;;
+esac

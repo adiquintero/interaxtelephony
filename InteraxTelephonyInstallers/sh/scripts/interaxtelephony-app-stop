@@ -1,0 +1,56 @@
+#!/bin/sh
+
+. interaxtelephony-functions
+
+appmodule=$1
+case $appmodule in
+    
+	"CallingCardAmi")
+		# appmodule, 
+		stop_app_process $appmodule 
+	;;
+
+    "IpPbxAmi")
+		# appmodule, 
+		stop_app_process $appmodule 
+	;;
+	
+	"IpPbxProvisionerThread")
+		# appmodule, 
+		stop_app_process $appmodule 
+	;;
+	
+	"ITSecurityManagerThread")
+		# appmodule, 
+		stop_app_process $appmodule 
+	;;
+
+	"VoiceTrafficAmi")
+	    # appmodule, 
+		stop_app_process $appmodule 
+	;;
+	
+	"DidAmi")
+	    # appmodule, 
+		stop_app_process $appmodule 
+	;;
+	
+	"PickDialingAmi")
+	    # appmodule, 
+		stop_app_process $appmodule 
+	;;
+	   
+   "all")
+		interaxtelephony-app-stop CallingCardAmi
+		interaxtelephony-app-stop IpPbxAmi
+		interaxtelephony-app-stop IpPbxProvisionerThread
+		interaxtelephony-app-stop ITSecurityManagerThread
+		interaxtelephony-app-stop VoiceTrafficAmi
+		interaxtelephony-app-stop DidAmi
+		interaxtelephony-app-stop PickDialingAmi
+	;;
+	
+   *) 
+	echo "Unknown stand alone module."
+	;;
+esac

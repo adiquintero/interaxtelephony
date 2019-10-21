@@ -1,0 +1,80 @@
+#!/bin/sh
+
+appmodule=$1
+case $appmodule in
+	 "InteraxTelephonyAmi")
+		interaxtelephony-app-clean $appmodule
+#		$SUDO_COMMAND rm $AMI_DIR/bin/* -Rf 
+#	 	$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/InteraxTelephonyAMI/build/* $AMI_DIR/bin/ -Rf
+	    $SUDO_COMMAND rm $AMI_DIR/config/* -Rf
+	    $SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/InteraxTelephonyAMI/config/* $AMI_DIR/config/ -Rf
+		echo DONE
+	  ;;
+#   "CallingCardAmi")
+#		interaxtelephony-app-clean $appmodule
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/CallingCardAMI/bin/* -Rf
+#		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/CallingCardAMI/build/com $INTERAX_TELEPHONY_APPS_DIR/CallingCardAMI/bin/ -Rf
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/CallingCardAMI/config/* -Rf
+#		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/CallingCardAMI/config/* $INTERAX_TELEPHONY_APPS_DIR/CallingCardAMI/config/
+#	;;
+#   "IpPbxAmi")
+#		interaxtelephony-app-clean $appmodule
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/IpPbxAMI/bin/* -Rf
+#		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/IpPbxAMI/build/com $INTERAX_TELEPHONY_APPS_DIR/IpPbxAMI/bin/ -Rf
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/IpPbxAMI/config/* -Rf
+#		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/IpPbxAMI/config/* $INTERAX_TELEPHONY_APPS_DIR/IpPbxAMI/config/
+#	;;
+   "IpPbxProvisionerThread")
+		interaxtelephony-app-clean $appmodule
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/bin/* -Rf
+#		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/IpPbxProvisionerThread/build/* $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/bin/ -Rf
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/config/* -Rf
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/IpPbxProvisionerThread/config/* $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/config/
+		
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/encrypters/* -Rf
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/IpPbxProvisionerThread/encrypters/* $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/encrypters/ -Rf
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/extra/* -Rf
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/IpPbxProvisionerThread/extra/* $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/extra/ -Rf
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/firmware/* -Rf
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/IpPbxProvisionerThread/firmware/* $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/firmware/ -Rf
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/xslt/* -Rf
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/IpPbxProvisionerThread/xslt/* $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/xslt/ -Rf
+		
+		echo DONE
+	;;
+   "ITSecurityManagerThread")
+		interaxtelephony-app-clean $appmodule
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/ITSecurityManagerThread/bin/* -Rf
+#		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/ITSecurityManagerThread/build/* $INTERAX_TELEPHONY_APPS_DIR/ITSecurityManagerThread/bin/ -Rf
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/ITSecurityManagerThread/config/* -Rf
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/ITSecurityManagerThread/config/* $INTERAX_TELEPHONY_APPS_DIR/ITSecurityManagerThread/config/
+		
+		echo DONE
+	;;
+#   "VoiceTrafficAmi")
+#		interaxtelephony-app-clean $appmodule
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/VoiceTrafficAMI/bin/* -Rf
+#		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/VoiceTrafficAMI/build/com $INTERAX_TELEPHONY_APPS_DIR/VoiceTrafficAMI/bin/ -Rf
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/VoiceTrafficAMI/config/* -Rf
+#		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/VoiceTrafficAMI/config/* $INTERAX_TELEPHONY_APPS_DIR/VoiceTrafficAMI/config/
+#	;;
+   "DidAmi")
+		interaxtelephony-app-clean $appmodule
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/DidAMI/bin/* -Rf
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/DidAMI/build/com $INTERAX_TELEPHONY_APPS_DIR/DidAMI/bin/ -Rf
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/DidAMI/config/* -Rf
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/DidAMI/config/* $INTERAX_TELEPHONY_APPS_DIR/DidAMI/config/
+	;;
+   "all")
+   		interaxtelephony-app-deploy InteraxTelephonyAmi
+   		interaxtelephony-app-deploy IpPbxProvisionerThread
+   		interaxtelephony-app-deploy ITSecurityManagerThread
+#   	interaxtelephony-app-deploy IpPbxAMI
+#   	interaxtelephony-app-deploy CallingCardAMI
+#   	interaxtelephony-app-deploy VoiceTrafficAMI
+    	interaxtelephony-app-deploy DidAMI
+	;;
+   *) 
+	echo "Unknown stand alone module."
+	;;
+esac

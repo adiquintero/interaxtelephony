@@ -1,0 +1,89 @@
+#!/bin/sh
+
+webmodule=$1
+case $webmodule in
+	"CoreWEBAdmin")
+		websection=$2
+		case $websection in
+			"applets")
+				$SUDO_COMMAND cp -r $INTERAX_TELEPHONY_SRC_DIR/$1/WebContent/applets/* $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/$1/applets/
+			;;
+
+		    	"css")
+				$SUDO_COMMAND cp -r $INTERAX_TELEPHONY_SRC_DIR/$1/WebContent/css/* $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/$1/css/
+			;;
+
+		  	"images")
+				$SUDO_COMMAND cp -r $INTERAX_TELEPHONY_SRC_DIR/$1/WebContent/images/* $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/$1/images/
+			;;
+
+		    	"js")
+				$SUDO_COMMAND cp -r $INTERAX_TELEPHONY_SRC_DIR/$1/WebContent/js/* $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/$1/js/
+			;;
+
+		    	"jsp")
+				$SUDO_COMMAND cp -r $INTERAX_TELEPHONY_SRC_DIR/$1/WebContent/WEB-INF/pages/* $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/$1/WEB-INF/pages/
+				$SUDO_COMMAND cp -r $INTERAX_TELEPHONY_SRC_DIR/$1/WebContent/WEB-INF/layouts/* $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/$1/WEB-INF/layouts/
+				$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/$1/WebContent/*.jsp $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/$1/
+			;;
+		    	
+			"mr")
+		   		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/$1/src/MessageResources* $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/$1/WEB-INF/classes/
+			;;
+
+			"lns")
+				cd $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/CoreWEBAdmin/images
+				$SUDO_COMMAND ln -s /var/lib/interaxtelephony/$INTERAX_TELEPHONY_VERSION/images/logos logos -f
+				$SUDO_COMMAND ln -s /var/lib/interaxtelephony/$INTERAX_TELEPHONY_VERSION/images/stats stats -f
+				$SUDO_COMMAND ln -s /var/lib/interaxtelephony/$INTERAX_TELEPHONY_VERSION/images/htmlNewsletterTemplates htmlNewsletterTemplates -f
+				$SUDO_COMMAND ln -s /var/lib/interaxtelephony/$INTERAX_TELEPHONY_VERSION/images/tmp tmp -f
+				$SUDO_COMMAND ln -s /var/lib/interaxtelephony/$INTERAX_TELEPHONY_VERSION/images/user user -f				
+			;;
+			
+			"validation")
+				
+				if [ -s $COREWEBADMIN_VALIDATION_OUTPUTFILE ] ; then
+					echo "file $COREWEBADMIN_VALIDATION_OUTPUTFILE already exist, cp to .old in order to generate new file"
+					mv $COREWEBADMIN_VALIDATION_OUTPUTFILE $COREWEBADMIN_VALIDATION_OUTPUTFILE.old
+				fi
+				
+				$SUDO_COMMAND $JAVA_COMMAND -classpath $COREWEBADMIN_VALIDATION_CLASSPATH com.interax.utils.StrutsValidatorGenerator $COREWEBADMIN_VALIDATION_DIR $COREWEBADMIN_VALIDATION_VALIDATOR_TEMPLATE $COREWEBADMIN_VALIDATION_FORMSET_TEMPLATE $COREWEBADMIN_VALIDATION_OUTPUTFILE 
+		   		
+			;;
+			
+		    *) 
+			echo "Unknown web section for selected web module."
+			;;
+		esac
+	;;
+	
+	"CoreWEBPublic")
+		websection=$2
+		case $websection in
+		  	"css")
+				$SUDO_COMMAND cp -r $INTERAX_TELEPHONY_SRC_DIR/$1/WebContent/css/* $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/$1/css/
+			;;
+		  	"images")
+				$SUDO_COMMAND cp -r $INTERAX_TELEPHONY_SRC_DIR/$1/WebContent/images/* $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/$1/images/
+			;;
+		    	"js")
+				$SUDO_COMMAND cp -r $INTERAX_TELEPHONY_SRC_DIR/$1/WebContent/js/* $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/$1/js/
+			;;
+		    	"jsp")
+				$SUDO_COMMAND cp -r $INTERAX_TELEPHONY_SRC_DIR/$1/WebContent/WEB-INF/pages/*.jsp $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/$1/WEB-INF/pages/
+				$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/$1/WebContent/*.jsp $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/$1/
+			;;
+		    	"lns")
+				cd $GLASSFISH_DOMAIN_DIR/applications/j2ee-modules/CoreWEBPublic/images
+				$SUDO_COMMAND ln -s /var/lib/interaxtelephony/$INTERAX_TELEPHONY_VERSION/images/logos logos -f
+			;;
+			*) 
+				echo "Unknown web section for selected web module."
+			;;
+		esac
+	;;
+	
+   *) 
+		echo "Unknown web module."
+	;;
+esac

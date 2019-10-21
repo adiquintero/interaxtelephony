@@ -1,0 +1,48 @@
+#!/bin/sh
+
+appmodule=$1
+case $appmodule in
+   "InteraxTelephonyAmi")
+#		$SUDO_COMMAND rm $AMI_DIR/bin/* -Rf 
+#	 	$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/InteraxTelephonyAMI/build/* $AMI_DIR/bin/ -Rf
+	;; 
+
+# "CallingCardAmi")
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/CallingCardAMI/bin/* -Rf
+#		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/CallingCardAMI/build/com $INTERAX_TELEPHONY_APPS_DIR/CallingCardAMI/bin/ -Rf
+#	;; 
+#  "IpPbxAmi")
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/IpPbxAMI/bin/* -Rf
+#		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/IpPbxAMI/build/com $INTERAX_TELEPHONY_APPS_DIR/IpPbxAMI/bin/ -Rf
+#	;;
+  "IpPbxProvisionerThread")
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/bin/* -Rf
+#		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/IpPbxProvisionerThread/build/* $INTERAX_TELEPHONY_APPS_DIR/IpPbxProvisionerThread/bin/ -Rf
+	;;
+	"ITSecurityManagerThread")
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/ITSecurityManagerThread/bin/* -Rf
+#		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/ITSecurityManagerThread/build/* $INTERAX_TELEPHONY_APPS_DIR/ITSecurityManagerThread/bin/ -Rf
+	;;
+   "VoiceTrafficAmi")
+#		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/VoiceTrafficAMI/bin/* -Rf
+#		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/VoiceTrafficAMI/build/com $INTERAX_TELEPHONY_APPS_DIR/VoiceTrafficAMI/bin/ -Rf
+;;
+   "DidAmi")
+		$SUDO_COMMAND rm $INTERAX_TELEPHONY_APPS_DIR/didAMI/bin/* -Rf
+		$SUDO_COMMAND cp $INTERAX_TELEPHONY_SRC_DIR/DidAMI/build/com $INTERAX_TELEPHONY_APPS_DIR/DidAMI/bin/ -Rf
+	;;
+   "all")
+  		interaxtelephony-app-redeploy InteraxTelephonyAMI
+   	    interaxtelephony-app-redeploy IpPbxProvisionerThread
+   	    interaxtelephony-app-redeploy ITSecurityManagerThread
+#   	interaxtelephony-app-redeploy IpPbxAMI
+#   	interaxtelephony-app-redeploy CallingCardAMI
+#   	interaxtelephony-app-redeploy VoiceTrafficAMI
+     	interaxtelephony-app-redeploy DidAMI
+	;;
+   *) 
+	echo "Unknown stand alone module."
+	;;
+esac
+
+

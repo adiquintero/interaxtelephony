@@ -1,0 +1,21 @@
+#!/bin/sh
+
+. interaxtelephony-functions
+
+action=$1
+case $action in
+   	"start")
+		$SUDO_COMMAND $KAMAILIO_CTRL_COMMAND start &
+	;;
+   	"stop")
+		$SUDO_COMMAND $KAMAILIO_CTRL_COMMAND stop &
+   		echo "Stop proxy server."
+	;;
+   	"restart")
+		interaxtelephony-server-sipproxy stop
+		interaxtelephony-server-sipproxy start
+	;;
+   *) 
+		echo "Unknown sipproxy-server action."
+	;;
+esac

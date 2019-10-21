@@ -1,0 +1,26 @@
+#!/bin/sh
+
+export action=$1
+export country=$2
+case $action in
+	"set")
+		export SRC_DEFAULT=interaxtelephony/default
+		export DST_DEFAULT=interaxtelephony/$country
+	;;
+	
+	"unset")
+		export SRC_DEFAULT=interaxtelephony/$country
+		export DST_DEFAULT=interaxtelephony/default
+	;;
+	
+	*) 
+		echo "Unknown DEFAULT action."
+	;;
+esac
+		
+
+		
+
+
+
+

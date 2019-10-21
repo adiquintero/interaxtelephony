@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "\n Stopping APPS... "
+interaxtelephony app stop all
+echo "\n APPS Stopped... "
+
+echo "\n Stopping SERVERS... " 
+interaxtelephony server agi stop
+interaxtelephony server sipproxy stop
+interaxtelephony server voice stop
+interaxtelephony server web stop
+interaxtelephony server db stop
+echo "\n Servers Stopped... "

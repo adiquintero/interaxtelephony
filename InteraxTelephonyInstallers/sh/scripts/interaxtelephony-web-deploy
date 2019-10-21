@@ -1,0 +1,51 @@
+#!/bin/sh
+
+webmodule=$1
+case $webmodule in
+	"CallingCardEJB")
+                echo Deploying $webmodule...
+		$AS_ADMIN_COMMAND deploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE --name CallingCardEJB --force=false $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/CallingCardEJB.jar
+	;;
+	"DIDEJB")
+                echo Deploying $webmodule...
+		$AS_ADMIN_COMMAND deploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE --name DIDEJB --force=false $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/DIDEJB.jar
+	;;
+	"InteraxTelephonyEJB")
+                echo Deploying $webmodule...
+		$AS_ADMIN_COMMAND deploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE --name InteraxTelephonyEJB --force=false $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteraxTelephonyEJB.jar
+	;;
+	"InteraxTelephonySecurityEJB")
+                echo Deploying $webmodule...
+		$AS_ADMIN_COMMAND deploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE --name InteraxTelephonySecurityEJB --force=false $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteraxTelephonySecurityEJB.jar
+	;;
+   	"IpPbxEJB")
+                echo Deploying $webmodule...
+		$AS_ADMIN_COMMAND deploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE --name IpPbxEJB --force=false $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/IpPbxEJB.jar	
+	;;
+	"InteractiveVoiceResponseEJB")
+                echo Deploying $webmodule...
+		$AS_ADMIN_COMMAND deploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE --name InteractiveVoiceResponseEJB --force=false $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/InteractiveVoiceResponseEJB.jar
+	;;
+        "PickDialingEJB")
+                echo Deploying $webmodule...
+		$AS_ADMIN_COMMAND deploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE --name PickDialingEJB --force=false $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/PickDialingEJB.jar
+	;;
+	"VoiceTrafficEJB")
+                echo Deploying $webmodule...
+		$AS_ADMIN_COMMAND deploy --host $INTERAX_TELEPHONY_HOSTNAME --port 4848 --user $GLASSFISH_USER --passwordfile $GLASSFISH_PASSWORD_FILE --name VoiceTrafficEJB --force=false $INTERAX_TELEPHONY_LIBS_DIR/interaxtelephony/VoiceTrafficEJB.jar
+	;;
+   "all")
+   		interaxtelephony-web-deploy CallingCardEJB
+   		interaxtelephony-web-deploy DIDEJB
+   		interaxtelephony-web-deploy InteraxTelephonyEJB
+   		interaxtelephony-web-deploy InteraxTelephonySecurityEJB
+   		interaxtelephony-web-deploy IpPbxEJB
+   		interaxtelephony-web-deploy InteractiveVoiceResposeEJB
+   		interaxtelephony-web-deploy VoiceTrafficEJB
+   		interaxtelephony-web-deploy PickDialingEJB
+   		echo "deploy all done!"
+	;;
+   *) 
+	echo "Unknown web module."
+	;;
+esac
