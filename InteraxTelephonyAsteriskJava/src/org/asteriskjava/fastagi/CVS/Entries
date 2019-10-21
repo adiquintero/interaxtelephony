@@ -1,0 +1,23 @@
+/AbstractMappingStrategy.java/1.1/Sun Sep 19 19:10:47 2010//TDesarrollo
+/AgiChannel.java/1.1/Sun Sep 19 19:10:48 2010//TDesarrollo
+/AgiException.java/1.1/Sun Sep 19 19:10:47 2010//TDesarrollo
+/AgiHangupException.java/1.1/Sun Sep 19 19:10:48 2010//TDesarrollo
+/AgiNetworkException.java/1.1/Sun Sep 19 19:10:47 2010//TDesarrollo
+/AgiOperations.java/1.1/Sun Sep 19 19:10:48 2010//TDesarrollo
+/AgiRequest.java/1.2/Fri Jun 03 15:37:06 2011//TDesarrollo
+/AgiScript.java/1.1/Sun Sep 19 19:10:46 2010//TDesarrollo
+/AgiServer.java/1.1/Sun Sep 19 19:10:47 2010//TDesarrollo
+/AgiServerThread.java/1.1/Sun Sep 19 19:10:47 2010//TDesarrollo
+/BaseAgiScript.java/1.1/Sun Sep 19 19:10:47 2010//TDesarrollo
+/ClassNameMappingStrategy.java/1.1/Sun Sep 19 19:10:48 2010//TDesarrollo
+/CompositeMappingStrategy.java/1.1/Sun Sep 19 19:10:48 2010//TDesarrollo
+/DefaultAgiServer.java/1.1/Sun Sep 19 19:10:48 2010//TDesarrollo
+/InvalidCommandSyntaxException.java/1.1/Sun Sep 19 19:10:48 2010//TDesarrollo
+/InvalidOrUnknownCommandException.java/1.1/Sun Sep 19 19:10:48 2010//TDesarrollo
+/MappingStrategy.java/1.1/Sun Sep 19 19:10:48 2010//TDesarrollo
+/ResourceBundleMappingStrategy.java/1.2/Fri Jun 03 15:37:06 2011//TDesarrollo
+/SimpleMappingStrategy.java/1.1/Sun Sep 19 19:10:48 2010//TDesarrollo
+/package.html/1.1/Sun Sep 19 19:10:47 2010//TDesarrollo
+D/command////
+D/internal////
+D/reply////

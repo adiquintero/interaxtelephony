@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Wed Sep 08 12:34:25 VET 2010
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=/usr/src/alodiga/interaxtelephony/3.0/InteraxTelephonyInstallers/lib/interaxtelephony/InteraxTelephonyAsteriskJava.jar
+manifest.mergeall=true
+manifest.mainclass=
+manifest.file=<createnew>
+jarname.isextern=true
+onejar.expand=
+excludes=<po|InteraxTelephonyAsteriskJava>~org/~asteriskjava/~CVS/;<po|InteraxTelephonyAsteriskJava>~org/~CVS/;<po|InteraxTelephonyAsteriskJava>~TempFatjarBuildDir_erase_me/;<po|InteraxTelephonyAsteriskJava>~nbproject/;<po|InteraxTelephonyAsteriskJava>~CVS/;<po|InteraxTelephonyAsteriskJava>~manifest.mf;<po|InteraxTelephonyAsteriskJava>~.fatjar;<po|InteraxTelephonyAsteriskJava>~settings.fatjar;<po|InteraxTelephonyAsteriskJava>~.classpath;<po|InteraxTelephonyAsteriskJava>~build.xml;<po|InteraxTelephonyAsteriskJava>~.project;<po|InteraxTelephonyAsteriskJava>~.cvsignore;<jar|edtftpj.jar>;<jar|log4j.jar>;<jar|mysql-connector-java-bin.jar>;<jar|poi.jar>;<jar|commons-net.jar>;<jar|commons-net-ftp.jar>
+includes=

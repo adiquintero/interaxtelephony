@@ -1,0 +1,18 @@
+/AbstractManagerEventListener.java/1.1/Sun Sep 19 19:11:14 2010//TDesarrollo
+/AuthenticationFailedException.java/1.1/Sun Sep 19 19:11:14 2010//TDesarrollo
+/DefaultManagerConnection.java/1.2/Fri Jun 03 15:37:07 2011//TDesarrollo
+/EventTimeoutException.java/1.1/Sun Sep 19 19:11:14 2010//TDesarrollo
+/ManagerConnection.java/1.2/Fri Jun 03 15:37:07 2011//TDesarrollo
+/ManagerConnectionFactory.java/1.1/Sun Sep 19 19:11:13 2010//TDesarrollo
+/ManagerConnectionState.java/1.1/Sun Sep 19 19:11:14 2010//TDesarrollo
+/ManagerEventListener.java/1.1/Sun Sep 19 19:11:14 2010//TDesarrollo
+/ManagerEventListenerProxy.java/1.1/Sun Sep 19 19:11:14 2010//TDesarrollo
+/PingThread.java/1.1/Sun Sep 19 19:11:14 2010//TDesarrollo
+/ResponseEvents.java/1.1/Sun Sep 19 19:11:13 2010//TDesarrollo
+/SendActionCallback.java/1.1/Sun Sep 19 19:11:13 2010//TDesarrollo
+/TimeoutException.java/1.1/Sun Sep 19 19:11:13 2010//TDesarrollo
+/package.html/1.1/Sun Sep 19 19:11:13 2010//TDesarrollo
+D/action////
+D/event////
+D/internal////
+D/response////
