@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Tue Mar 02 17:05:04 VET 2010
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=/home/vicente/Workspaces/interaxtelephony/InteraxTelephonyInstallers/lib/interaxtelephony/VoiceTrafficAGIs.jar
+manifest.mergeall=true
+manifest.mainclass=
+manifest.file=<createnew>
+jarname.isextern=true
+onejar.expand=
+excludes=<po|InteraxLibraries>;<po|InteraxTelephonyAGIServer>;<po|InteraxTelephonyCommons>;<po|InteraxTelephonyAsteriskJava>;<jar|commons-net-2.0.jar>;<jar|commons-net-ftp-2.0.jar>;<jar|edtftpj.jar>;<jar|appserv-admin.jar>;<jar|appserv-deployment-client.jar>;<jar|appserv-rt.jar>;<jar|javaee.jar>;<jar|log4j-1.2.11.jar>
+includes=

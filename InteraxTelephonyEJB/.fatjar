@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Wed Sep 08 12:44:32 VET 2010
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=/usr/src/alodiga/interaxtelephony/3.0/InteraxTelephonyInstallers/lib/interaxtelephony/InteraxTelephonyEJB.jar
+manifest.mergeall=true
+manifest.mainclass=
+manifest.file=<createnew>
+jarname.isextern=true
+onejar.expand=
+excludes=<po|InteraxLibraries>;<po|InteraxTelephonyCommons>;<po|InteraxLibraries>;<po|InteraxTelephonyAsteriskJava>;<po|InteraxTelephonyDataManagers>;<po|InteraxLibraries>;<po|InteraxTelephonyCommons>;<po|InteraxLibraries>;<po|InteraxTelephonyAsteriskJava>;<jar|activation.jar>;<jar|admin-cli.jar>;<jar|admin-cli-ee.jar>;<jar|appserv-admin.jar>;<jar|appserv-cmp.jar>;<jar|appserv-deployment-client.jar>;<jar|appserv-ee.jar>;<jar|appserv-ext.jar>;<jar|appserv-jstl.jar>;<jar|appserv-jwsacc.jar>;<jar|appserv-launch.jar>;<jar|appserv-rt.jar>;<jar|appserv-se.jar>;<jar|appserv-tags.jar>;<jar|appserv-upgrade.jar>;<jar|appserv-ws.jar>;<jar|com-sun-commons-launcher.jar>;<jar|com-sun-commons-logging.jar>;<jar|dbschema.jar>;<jar|j2ee.jar>;<jar|j2ee-svc.jar>;<jar|javaee.jar>;<jar|jesmf-plugin.jar>;<jar|jhall.jar>;<jar|jmac-api.jar>;<jar|jmxremote_optional.jar>;<jar|jsf-impl.jar>;<jar|jxta.jar>;<jar|mail.jar>;<jar|Pack200Task.jar>;<jar|shoal-gms.jar>;<jar|sun-appserv-ant.jar>;<jar|toplink-essentials.jar>;<jar|toplink-essentials-agent.jar>;<jar|webservices-rt.jar>;<jar|webservices-tools.jar>;<jar|ant.jar>;<jar|ant-antlr.jar>;<jar|edtftpj.jar>;<jar|log4j.jar>;<jar|mysql-connector-java-bin.jar>;<jar|poi.jar>;<jar|commons-net.jar>;<jar|commons-net-ftp.jar>
+includes=

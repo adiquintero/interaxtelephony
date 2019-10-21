@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Tue Aug 31 15:26:17 VET 2010
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=/home/vicente/Workspaces/interaxtelephony/InteraxTelephonyInstallers/lib/interaxtelephony/VoiceTrafficEJB.jar
+manifest.mergeall=true
+manifest.mainclass=
+manifest.file=<createnew>
+jarname.isextern=true
+onejar.expand=
+excludes=<po|VoiceTrafficEJB>~CVS/;<po|InteraxLibraries>;<po|InteraxTelephonyCommons>;<po|InteraxLibraries>;<po|InteraxTelephonyAsteriskJava>;<po|InteraxTelephonyDataManagers>;<po|InteraxLibraries>;<po|InteraxTelephonyCommons>;<po|InteraxLibraries>;<po|InteraxTelephonyAsteriskJava>;<jar|appserv-admin.jar>;<jar|appserv-deployment-client.jar>;<jar|appserv-rt.jar>;<jar|javaee.jar>;<jar|commons-net-2.0.jar>;<jar|commons-net-ftp-2.0.jar>;<jar|edtftpj.jar>;<jar|log4j-1.2.11.jar>
+includes=
