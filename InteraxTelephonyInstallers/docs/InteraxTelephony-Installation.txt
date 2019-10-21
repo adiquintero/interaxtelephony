@@ -1,0 +1,359 @@
+*********************************************************************************************************************
+								PASOS PARA INSTALAR EL SISTEMA INTERAX TELEPHONY
+*********************************************************************************************************************
+
+
+*********************************************************************************************************************
+A.- INDICE:
+*********************************************************************************************************************
+1.- Instalación del Sistema Operativo
+	a) Distribución recomendada
+	b) Paquetes a instalar
+	c) Particionamiento recomendado
+2.- Copia de los archivos de instalación al servidor
+	a) Ambiente de desarrollo
+	b) Ambiente de producción
+3.- Configuración de variables de entorno del InteraxTelephony
+	a) Personalización de variables de entorno
+	b) Agregar scripts del InteraxTelephony al PATH
+	c) Configurar la entrada DNS local
+4.- Instalación de Servidores, Aplicaciones y Bibliotecas de terceros
+	a) Instalación de dependencias
+	b) Creación de directorios
+	c) Instalación completa
+	d) Instalación parcial
+5.- Instalación de Bases de Datos del InteraxTelephony
+	a) Instalación completa
+	b) Añadir nuevos 
+6.- Instalación de Aplicaciones Web del InteraxTelephony
+7.- Instalación de Aplicaciones StandAlone del InteraxTelephony
+8.- Pruebas básicas
+9.- Procesos de respaldo
+	a) Servidor de InteraxTelephony
+	b) Servidor de respaldo
+10.-Garantizar full service en producción.
+	a) Arranque del sistema en conjunto con el servidor
+	b) Verificación contínua de los servidores y aplicaciones del INMERX
+
+
+
+*********************************************************************************************************************
+B.- CONTENIDO:
+*********************************************************************************************************************
+
+---------------------------------------------------------------------------------------------------------------------
+1.- Instalación del Sistema Operativo
+---------------------------------------------------------------------------------------------------------------------
+a) Distribución recomendada: 
+	- Debian de 32 o 64 bits.
+
+b) Paquetes a instalar:
+	- TODO
+
+c) Particionamiento recomendado:
+	- /boot		100 Mb
+	- /			15 Gb
+	- /usr		15 Gb
+	- /var		Resto
+	
+
+---------------------------------------------------------------------------------------------------------------------
+2.- Copia de los archivos de instalación al servidor
+---------------------------------------------------------------------------------------------------------------------
+a) Ambiente de desarrollo: 
+	- Descargar y configurar ambiente de desarrollo de InteraxTelephony. Seguir los pasos descritos en el documento: InteraxTelephony-Workspace.txt
+	- Crear enlaces simbólicos hacia el workspace:
+	
+		> cd /usr/src
+		> sudo mkdir alodiga
+		> cd alodiga
+		> sudo mkdir interaxtelephony
+		> cd interaxtelephony
+        Eclipse:
+			> sudo ln -s <WORKSPACE_DIR> <VERSION>
+	        > sudo ln -s <VERSION> default
+        Netbeans:
+	        > sudo ln -s <WORKSPACE_DIR>/interaxtelephony <VERSION>
+	        > sudo ln -s <VERSION> default
+		
+	
+	- Empaquetar todos los jars y wars necesarios para el funcionamiento del sistema
+	- Seguir la instrucciones del punto 3
+		
+
+b) Ambiente de producción: 
+	- TODO
+		
+		
+
+---------------------------------------------------------------------------------------------------------------------
+3.- Configuración de la instalación
+---------------------------------------------------------------------------------------------------------------------
+
+a) Personalización de variables de entorno:
+	- Abrir el archivo de variables de ambiente con un editor de texto:
+		> sudo vim /usr/src/alodiga/interaxtelephony/default/InteraxTelephonyInstallers/sh/scripts/interaxtelephony-enviroment
+	- Editar las siguientes variables según sea necesario:
+		- SUDO_COMMAND
+		- LINUX_ARCHITECTURE
+		- PERL_VERSION
+		- ALODIGA_HOSTNAME
+		- INTERAX_TELEPHONY_VERSION
+	- Opcionalmente, editar las siguientes variables
+		- DB_HOST
+		- DB_USER
+		- DB_PASSWORD
+		- DB_ROOT_USER
+		- DB_ROOT_PASSWORD
+		- ASTERISK_DB_USER
+		- ASTERISK_DB_PASSWORD
+		- GLASSFISH_USER
+		- GLASSFISH_PASSWORD
+		- GLASSFISH_DOMAIN_NAME
+	- Guardar el archivo 
+
+b) Edición del archivo bashrc:
+	- Abrir el archivo bashrc con un editor de texto:
+		> sudo vim ~/.bashrc
+	- Agregar las siguientes líneas al final del archivo:
+		- export INTERAX_TELEPHONY_SH_DIR=/usr/src/alodiga/interaxtelephony/default/InteraxTelephonyInstallers/sh
+		- export PATH=$PATH:$INTERAX_TELEPHONY_SH_DIR
+	- Guardar el archivo 
+	- Hacer ejecutables los scripts de interaxtelephony
+		> chmod +x /usr/src/alodiga/interaxtelephony/default/InteraxTelephonyInstallers/sh/interaxtelephony
+		> chmod +x /usr/src/alodiga/interaxtelephony/default/InteraxTelephonyInstallers/sh/alodiga
+		> chmod +x /usr/src/alodiga/interaxtelephony/default/InteraxTelephonyInstallers/sh/scripts/*
+	
+c) Configurar la entrada DNS local (de ser necesario):
+
+	- Ambientes
+	
+		- Ambiente de desarrollo
+			- Para el ambiente de desarrollo las entradas están preconfiguradas en el DNS Interno:
+				- <IP_PRIVADA> development<N>.alodiga.com
+				- <IP_PRIVADA> *.development<N>.alodiga.com
+			
+		- Ambiente de calidad
+			- Para el ambiente de calidad las entradas están preconfiguradas en el DNS Interno:
+				- <IP_PRIVADA> vpn.qa.alodiga.com
+				- <IP_PRIVADA> *.vpn.qa.alodiga.com
+				
+			- Para el ambiente de calidad las entradas están preconfiguradas en el DNS Público:
+				- <IP_PÚBLICA> qa.alodiga.com
+				- <IP_PÚBLICA> *.qa.alodiga.com
+				
+		- Ambiente de producción
+			- Para el ambiente de calidad las entradas están preconfiguradas en el DNS Interno:
+				- <IP_PRIVADA> XXX.vpn.qa.alodiga.com
+				- <IP_PÚBLICA> XXX.alodiga.com
+
+	
+---------------------------------------------------------------------------------------------------------------------
+4.- Instalación de Servidores, Aplicaciones y Bibliotecas de terceros
+---------------------------------------------------------------------------------------------------------------------
+a) Instalación de dependencias:
+		UBUNTU
+		> sudo apt-get install build-essential libncurses5-dev
+                > sudo apt-get install libmyodbc unixodbc unixodbc-dev
+                > sudo apt-get install libxml2 libxml2-dev bison flex
+                > sudo apt-get install libmudflap0-dev libgnademysql-dev
+		> sudo apt-get install libaio1 libaio-dev unzip
+		
+		DEBIAN 6
+		apt-get install build-essential libncurses5-dev libmyodbc unixodbc unixodbc-dev libxml2 libxml2-dev bison flex 
+		# No se encuentran en debian 6 >> libmudflap0-dev libgnademysql-dev
+		# Instalar extras para MySQL 5.5.x y Debian 6
+		apt-get install libaio1 libaio-dev unzip
+		
+		CENTOS
+		> yum install make perl which gcc gcc-c++ libtermcap-devel ncurses-devel
+		> yum install mysql-connector-odbc unixODBC unixODBC-devel libtool-ltdl.x86_64 libtool-ltdl-devel.x86_64
+		> yum install libxml2 libxml2-devel bison flex
+		> yum install mysql-devel zlib zlib-devel
+
+b) Creación de directorios:
+	- Si se tiene instalada la versión en cuestión, eliminar primero los directorios antiguos mediante el comando
+		> interaxtelephony server linux deletedirs
+
+	- Para crear los directorios base del sistema, utilizar el siguiente script:
+		> interaxtelephony server linux createdirs
+		
+	- Crear enlaces simbólicos a la versión por defecto
+		> interaxtelephony system changeversion <VERSION>
+
+c) Instalación completa:
+	- Para instalar todos los servidores, aplicaciones y bibliotecas, utilizar el siguiente script:
+		> interaxtelephony system install all
+		(cuando salga una ventana con la licencia de glassfish bajar el scroll hasta el final para poder darle al boton de acept )
+
+d) Instalación parcial:
+	- Para instalar un determinado servidor, aplicación o biblioteca, utilizar los siguientes scripts:
+		> interaxtelephony system install java
+		> interaxtelephony system install glassfish
+		> interaxtelephony system install mysql-sandbox
+		> interaxtelephony system install mysql
+                > interaxtelephony system install mysql-no-sandbox
+		> interaxtelephony system install asterisk 
+		> interaxtelephony system install kamailio
+		
+e) Copiar bibliotecas y wars del InteraxTelephony:
+	- Para copiar todos los jar (interaxtelephony y thirdparty) del workspace al directorio de interaxtelephony, utilizar el script:	
+		> interaxtelephony server linux copylibs
+		
+	- Para actualizar todos los jar (interaxtelephony y thirdparty), utilizar el script:	
+		> interaxtelephony server linux updatelibs
+		
+	- Para actualizar solo los jar básicos (InteraxLibraries / ContactManagerCommons), utilizar el script:	
+		>  interaxtelephony server linux updatebaselibs
+        - Para la instalación de glassfish 3.x.x en Ubuntu, editar el archivo:          
+           sudo vim /usr/share/alodiga/interaxtelephony/default/server/glassfish/glassfish/config/asenv.conf
+        - Agregar la variables:
+           AS_JAVA="/usr/share/alodiga/interaxtelephony/default/server/java"
+        
+---------------------------------------------------------------------------------------------------------------------
+5.- Instalación de Bases de Datos del InteraxTelephony
+---------------------------------------------------------------------------------------------------------------------
+a) Configuración de la base de datos en el sistema, utilizar el script e introducir los datos requeridos:
+	> interaxtelephony system configure mysql base
+	
+    Para la instalación de MySQL sin Sandbox
+    Presione ENTER al momento que aparezca el mensaje "Enter password:"
+
+---------------------------------------------------------------------------------------------------------------------
+6.- Instalación de Aplicaciones Web del InteraxTelephony
+---------------------------------------------------------------------------------------------------------------------
+
+a) Configuración del nuevo domain en el servidor glassfish, utilizar el script e introducir los datos requeridos:
+	> interaxtelephony system configure glassfish base
+	
+b) Para crear los enlaces simbólicos del servidor web, utilizar los scripts:
+	interaxtelephony server web createtplinks
+	interaxtelephony server web createliblinks
+
+c) Reiniciar el servidor web mediante el script:
+        interaxtelephony server web restart
+
+d) Para realizar deploy de toda la aplicación, utilizar el script:
+	> interaxtelephony web deploy <nombre_modulo>
+	para todas:
+	> interaxtelephony web deploy all
+
+(ACTUALIZAR) Si se necesita actualizar un cambio en el servidor web, utilizar el script:
+	interaxtelephony web redeploy <nombre_modulo>
+	para todas:
+	interaxtelephony web redeploy all
+
+	
+
+
+---------------------------------------------------------------------------------------------------------------------
+7.- Instalación de Aplicaciones StandAlone del InteraxTelephony
+---------------------------------------------------------------------------------------------------------------------
+interaxtelephony system configure asterisk
+interaxtelephony system configure kamailio
+interaxtelephony app deploy all
+interaxtelephony server agi updateserver
+interaxtelephony host share set
+
+Copiar Audios:
+cp /usr/src/alodiga/interaxtelephony/default/InteraxTelephonyInstallers/sounds/g729/wixtel /usr/share/alodiga/interaxtelephony/default/server/asterisk/var/lib/sounds/ -Rf
+
+CONVERT CONFIG FILES
++SIP.CONF (NEXTONE, PBX)
+
+
+------------------------------------
+DEPRECATED
+------------------------------------
+
+CONFIGURAR PEER DE SALIDA EN SIP.CONF si es distinto al default (interaxtelephony-qa)
+
+ARCHIVOS .properties:
+interaxtelephony system configure config-files
+
+
+IpPbxProvisionerTHREAD:
+Crear las suguientes carpetas:
+sudo mkdir /usr/share/interaxtelephony/<VERSION>/app/IpPbxProvisionerThread/xml/
+sudo mkdir /usr/share/interaxtelephony/<VERSION>/app/IpPbxProvisionerThread/xml/error/
+
+Copiar las siguientes carpetas:
+sudo cp /usr/src/interaxtelephony/<VERSION>/IpPbxProvisionerThread/encrypters/ /usr/share/interaxtelephony/<VERSION>/app/IpPbxProvisionerThread/encrypters/ -Rf
+sudo cp /usr/src/interaxtelephony/<VERSION>/IpPbxProvisionerThread/extra/ /usr/share/interaxtelephony/<VERSION>/app/IpPbxProvisionerThread/extra/ -Rf
+sudo cp /usr/src/interaxtelephony/<VERSION>/IpPbxProvisionerThread/firmware/ /usr/share/interaxtelephony/<VERSION>/app/IpPbxProvisionerThread/firmware/ -Rf
+sudo cp /usr/src/interaxtelephony/<VERSION>/IpPbxProvisionerThread/xslt/ /usr/share/interaxtelephony/<VERSION>/app/IpPbxProvisionerThread/xslt/ -Rf
+
+
+INSTALAR EL SERVIDOR TFTP:
+1. Instalar el servidor tftpd y los packages.
+
+sudo apt-get install xinetd tftpd tftp
+
+2. Crear sudo vim /etc/xinetd.d/tftp y colocar esta entrada:
+
+service tftp
+{
+protocol        = udp
+port            = 69
+socket_type     = dgram
+wait            = yes
+user            = nobody
+server          = /usr/sbin/in.tftpd
+server_args     = /tftpboot
+disable         = no
+}
+
+3. Crear el directorio /tftpboot 
+
+sudo mkdir /tftpboot
+chown nobody:nobody /tftpboot
+chmod 744 /tftpboot/
+
+
+4. Levantar el servidor tftpd usando xinetd
+
+sudo /etc/init.d/xinetd start
+
+5. Prueba:
+
+touch /tftpboot/hda.txt
+chown nobody:nobody /tftpboot -Rf
+chmod 644 /tftpboot/* -Rf
+ls -l /tftpboot/
+
+tftp 192.168.X.XXX
+tftp> put hda.txt
+Sent 722 bytes in 0.0 seconds
+tftp> quit
+$ ls -l /tftpboot/
+total 4
+-rwxrwxrwx  1 davids davids 707 2006-03-27 23:07 hda.txt
+
+
+REDEPLOY:
+interaxtelephony system stop
+interaxtelephony server linux updatelibs
+interaxtelephony app redeploy all
+interaxtelephony server agi updateimpl
+interaxtelephony system start
+
+
+
+TODO: CAMBIAR GLASSFISH AL PUERTO 80
+TODO: GLASSFISH TWEAKS
+TODO: SCRIPTS DE INICIO
+TODO: HACER QUE KAMAILIO FUNCIONE CONTRA EL MYSQL ISOLATED
+
+
+
+
+yum -y install gcc.x86_64 gcc-c++.x86_64 kernel-devel.x86_64 bison.x86_64 openssl-devel.x86_64 \
+libtermcap-devel.x86_64 ncurses-devel.x86_64 doxygen.x86_64 curl-devel.x86_64 newt-devel.x86_64 \
+mlocate.x86_64 lynx.x86_64 tar.x86_64 wget.x86_64 nmap.x86_64 bzip2.x86_64 mod_ssl.x86_64 \
+crontabs.x86_64 vixie-cron.x86_64 speex.x86_64 speex-devel.x86_64 unixODBC.x86_64 \
+unixODBC-devel.x86_64 libtool-ltdl.x86_64 libtool-ltdl-devel.x86_64 mysql-connector-odbc.x86_64 \
+mysql.x86_64 mysql-devel.x86_64 mysql-server.x86_64 php-mysql.x86_64 php-mbstring.x86_64 \
+php-mcrypt.x86_64 flex.x86_64 screen.x86_64
+
+yum -y install libidn-devel krb5-devel krb5-libs zlib-devel libidn-devel
+ln -sf /lib64/libcom_err.so.2 /lib64/libcom_err.so

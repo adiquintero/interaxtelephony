@@ -1,0 +1,6 @@
+Patch #1: Don't wait for action response with timeout = 0
+--------------------------------------------------------
+Autor:				Carlos Garcia / Vicente Robles
+Archivos: 			- org.asteriskjava.manager.internal.ManagerConnectionImpl
+Descripción:			Regresa una respuesta nula si el valor del timeout es cero.
+Status:				En uso

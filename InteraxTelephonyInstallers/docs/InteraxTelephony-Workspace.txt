@@ -1,0 +1,650 @@
+=============================================================================================
+0.- Requisitos
+=============================================================================================
+
+> Tener un Workspace separado y adecuado para el proyecto Alodiga:
+	- Eclipse:
+		- WTP Instalado
+		- FatJar Instalado
+		- Workingsets: 
+			- InteraxShared
+			- InteraxTelephony
+	- Netbeans
+		- Crear ProjectGroup
+			- InteraxTelephony
+		
+=============================================================================================
+
+
+
+=============================================================================================
+1.- Crear los siguientes repositorios:
+=============================================================================================
+
+- Eclipse
+	- Abrir la perspectiva CVS Repository
+	- Click Derecho > New > Repository Location
+	- Llenar los campos
+		- Host
+		- Repository Path
+		- User
+		- Password
+	- Click en Finish
+	- Click Derecho sobre el repositorio > Properties
+	- Marcar la opción "Use Custom Label" y colocar el nombre especificado en la tabla.
+
+- Netbeans
+
+    - Team > Checkout
+    - Llenar los campos
+                - CVSRoot
+                - Password
+    - Hacer click en Next
+    - Llenar los campos
+                - Module
+                - Branch
+                - Local folder: /home/<usuario>/workspace/<version>/interaxtelephony
+
+
+---------------------------------------------------------------------------------------------
+Información detallada de los repositorios:
+---------------------------------------------------------------------------------------------
+
+NOMBRE				SERVIDOR			RUTA
+---------------------------------------------------------------------------------------------
+InteraxShared			cvs.interaxmedia.com		/cvs/shared
+InteraxTelephony		cvs.interaxmedia.com		/cvs/alodiga/interaxtelephony
+
+=============================================================================================
+
+
+
+=============================================================================================
+2.- Hacer checkout del proyecto InteraxTelephonyInstallers 
+=============================================================================================
+
+- Eclipse
+	- Abrir la perspectiva CVS Repository
+	- Expandir el repositorio InteraxTelephony > HEAD
+	- Seleccionar el proyecto "InteraxTelephonyInstallers"
+	- Click Derecho > Checkout
+
+- Netbeans
+
+---------------------------------------------------------------------------------------------
+Información detallada del proyecto:
+---------------------------------------------------------------------------------------------
+
+Project:			InteraxTelephonyInstallers
+Description:        		---
+Repository:			InteraxTelephony
+Type:				Project
+Context Path:       		---
+
+Java Build Path:
+- Source Folder:			---
+- Output Folder:			---
+- Output File:				---
+- Projects:					---
+- Add Jars:					---
+- User Libraries:			---
+
+=============================================================================================
+
+
+
+=============================================================================================
+3.- Instalar Java y Glassfish
+=============================================================================================
+
+> Instalar JAVA y GLASSFISH del proyecto InteraxTelephony
+	- Seguir las instrucciones del archivo "InteraxTelephony-Installation.txt" hasta el paso #4
+	
+> Configurar el entorno de desarrollo para utilizar el JRE de InteraxTelephony	
+
+	- Eclipse: 
+		- (Window -> Preferences -> Java -> Installed JREs)
+		- Nombre: InteraxTelephony JRE
+		- Ruta: /usr/share/alodiga/interaxtelephony/<VERSION>/server/java
+		- Marcarlo como JRE por defecto
+		- Configurar todos los proyectos para utilizar el JRE por defecto
+	- Netbeans
+                - Configurar todos los proyectos para utilizar el JRE por defecto O
+                Cambiar la por defecto editando el netbeans.conf dentro del InstalacionNetbeans/etc/netbeans.conf
+                netbeans_jdkhome="/usr/share/alodiga/interaxtelephony/<VERSION>/server/java"
+		
+=============================================================================================
+
+
+=============================================================================================
+4.- Crear las bibliotecas de usuario
+=============================================================================================
+Eclipse:
+		- (Window -> Preferences -> Java -> Build Path -> User Libraries)
+		- Nombre: InteraxTelephony Glassfish Libraries
+		- Jars:
+			- /usr/share/alodiga/interaxtelephony/<VERSION>/server/glassfish/lib/*.jar
+			- /usr/share/alodiga/interaxtelephony/<VERSION>/server/glassfish/lib/ant/lib/ant-antlr.jar
+			- /usr/share/alodiga/interaxtelephony/<VERSION>/server/glassfish/lib/ant/lib/ant.jar
+-----------------------------------------------------------------------------------------------
+
+		- (Window -> Preferences -> Java -> Build Path -> User Libraries)
+		- Nombre: InteraxTelephony Third Party Libraries
+		- Jars:
+			- /usr/src/alodiga/interaxtelephony/<VERSION>/InteraxTelephonyInstallers/lib/thirdparty/*.jar
+Netbeans:
+                - (Tools -> Libraries -> New Library)
+                - Nombre: InteraxTelephony_Glassfish_Libraries
+                - Jars:
+			- /usr/share/alodiga/interaxtelephony/<VERSION>/server/glassfish/lib/*.jar
+			- /usr/share/alodiga/interaxtelephony/<VERSION>/server/glassfish/lib/ant/lib/ant-antlr.jar
+			- /usr/share/alodiga/interaxtelephony/<VERSION>/server/glassfish/lib/ant/lib/ant.jar
+-----------------------------------------------------------------------------------------------
+                - (Tools -> Libraries -> New Library)
+		- Nombre: InteraxTelephony_ThirdParty_Libraries
+		- Jars:
+			- /usr/src/alodiga/interaxtelephony/<VERSION>/InteraxTelephonyInstallers/lib/thirdparty/*.jar
+=============================================================================================
+
+
+
+=============================================================================================
+5.- Proyectos del repositorio InteraxShared
+=============================================================================================
+
+- Eclipse
+	- Abrir la perspectiva CVS Repository
+	- Expandir el repositorio InteraxShared > HEAD
+	- Seleccionar simultáneamente todos los proyectos abajo indicados
+	- Click Derecho > Checkout
+
+- Netbeans
+
+---------------------------------------------------------------------------------------------
+Información detallada de los proyectos:
+---------------------------------------------------------------------------------------------
+
+Project:				InteraxLibraries
+Description:        		---
+Repository:				InteraxShared
+Type:					Java Project
+Context Path:       		---
+
+Java Build Path:
+- Source Folder:		srcCommons
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/InteraxLibraries.jar
+- Projects:					---
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Glassfish Libraries
+						- InteraxTelephony Third Party Libraries
+					
+-----------------------------------------------------------------------------------------------
+
+Project:				InteraxReports
+Description:        		---
+Repository:				InteraxShared
+Type:					Java Project
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/InteraxReports.jar
+- Projects:				- InteraxLibraries
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Glassfish Libraries
+						- InteraxTelephony Third Party Libraries
+					
+=============================================================================================
+
+
+
+=============================================================================================
+6.- Proyectos del repositorio InteraxTelephony
+=============================================================================================
+
+- Eclipse
+	- Abrir la perspectiva CVS Repository
+	- Expandir el repositorio InteraxTelephony > HEAD
+	- Seleccionar simultáneamente todos los proyectos abajo indicados
+	- Click Derecho > Checkout
+
+- Netbeans
+
+---------------------------------------------------------------------------------------------
+Información detallada de los proyectos:
+---------------------------------------------------------------------------------------------
+
+Project:				CallingCardAGIs
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:       		---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/CallingCardAGIs.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyCommons
+						- InteraxTelephonyAGIServer
+						- InteraxTelephonyAsteriskJava
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+Project:				CallingCardEJB
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:       		---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/CallingCardEJB.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyCommons
+						- InteraxTelephonyDataManagers
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Glassfish Libraries
+						- InteraxTelephony Third Party Libraries
+					
+-----------------------------------------------------------------------------------------------
+
+Project:				InteractiveVoiceResponseAGIs
+Description:       			---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:      	 		---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/InteractiveVoiceResponseAGIs.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyAGIServer
+						- InteraxTelephonyAsteriskJava
+						- InteraxTelephonyCommons
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+Project:				InteractiveVoiceResponseEJB
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:      			---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/InteractiveVoiceResponseEJB.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyCommons
+						- InteraxTelephonyDataManagers
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Glassfish Libraries
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+
+Project:				InteraxTelephonyAGIServer
+Description:      	  		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:       		---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/InteraxTelephonyAGIServer.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyAsteriskJava
+						- InteraxTelephonyCommons
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+Project:				InteraxTelephonyAMI
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:      			---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/InteraxTelephonyAMI.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyAsteriskJava
+						- InteraxTelephonyCommons
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Glassfish Libraries
+						- InteraxTelephony Third Party Librariesibs
+
+-----------------------------------------------------------------------------------------------
+
+Project:				InteraxTelephonyAsteriskJava
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:   	   		---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/InteraxTelephonyAsteriskJava.jar
+- Projects:					---
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+Project:				InteraxTelephonyCommons
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:       		---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/InteraxTelephonyCommons.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyAsteriskJava
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Glassfish Libraries
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+Project:				InteraxTelephonyConfigReloader
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:       		---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/InteraxTelephonyConfigReloader.jar
+- Projects:				- CallingCardAGIs
+						- InteraxLibraries
+						- InteraxTelephonyAMI
+						- InteraxTelephonyCommons
+						- IpPbxAGIs
+						- VoiceTrafficAGIs			
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+Project:				InteraxTelephonyDataManagers
+Description:       		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:       		---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/InteraxTelephonyDataManagers.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyCommons
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+Project:				InteraxTelephonyDocs
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Project
+Context Path:       		---
+
+Java Build Path:
+- Source Folder:			---
+- Output Folder:			---
+- Output File:				---
+- Projects:					---
+- Add Jars:					---
+- User Libraries:			---
+
+-----------------------------------------------------------------------------------------------
+
+Project:				InteraxTelephonyEJB
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:       		---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/InteraxTelephonyEJB.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyCommons
+						- InteraxTelephonyDataManagers
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Glassfish Libraries
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+Project:				InteraxTelephonyReports
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:       		---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/InteraxTelephonyReports.jar
+- Projects:				- InteraxLibraries
+						- InteraxReports
+						- InteraxTelephonyCommons
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+Project:				InteraxTelephonyTests
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:       		---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:				---
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyCommons
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+Project:				IpPbxAGIs
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:       		---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/IpPbxAGIs.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyAGIServer
+						- InteraxTelephonyAsteriskJava
+						- InteraxTelephonyCommons
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Third Party Libraries
+					
+-----------------------------------------------------------------------------------------------
+
+Project:				IpPbxEJB
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:      			---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/IpPbxEJB.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyCommons
+						- InteraxTelephonyDataManagers
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Glassfish Libraries
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+Project:				IpPbxProvisionerThread
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:      			---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/IpPbxProvisionerThread.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyCommons
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+Project:				PickDialingAGIs
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:      			---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/PickDialingAGIs.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyAGIServer
+						- InteraxTelephonyAsteriskJava
+						- InteraxTelephonyCommons
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+Project:				PickDialingEJB
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:       		---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/PickDialingEJB.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyCommons
+						- InteraxTelephonyDataManagers
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Glassfish Libraries
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+
+Project:				VoiceTrafficAGIs
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:      			---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/VoiceTrafficAGIs.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyAGIServer
+						- InteraxTelephonyAsteriskJava
+						- InteraxTelephonyCommons
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+Project:				VoiceTrafficEJB
+Description:        		---
+Repository:				InteraxTelephony
+Type:					Java Project
+Context Path:       		---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyInstallers/lib/interaxtelephony/VoiceTrafficEJB.jar
+- Projects:				- InteraxLibraries
+						- InteraxTelephonyCommons
+						- InteraxTelephonyDataManagers
+- Add Jars:					---
+- User Libraries:		- InteraxTelephony JRE
+						- InteraxTelephony Glassfish Libraries
+						- InteraxTelephony Third Party Libraries
+
+-----------------------------------------------------------------------------------------------
+
+
+
+PARA LA 4.0
+
+
+Project:			InteraxTelephonyWebPhone
+Description:       		---
+Repository:			InteraxShared
+Type:				Java Project
+Context Path:      	 	---
+
+Java Build Path:
+- Source Folder:		src
+- Output Folder:		build
+- Output File:			InteraxTelephonyWebPhone/lib/interaxtelephony/InteraxTelephonyWebPhone.jar
+- Projects:			- InteraxLibraries
+				- InteraxTelephonyCommons
+- Add Jars:			- jspeex.jar
+				- jso.jar
+				- bcprov-jdk15-143.jar
+- User Libraries:		- InteraxTelephony JRE
+				- InteraxTelephony Glassfish Libraries
+				- InteraxTelephony Third Party Libraries

@@ -1,0 +1,4 @@
+DELETE FROM cc_did_step WHERE action = 'IVR_DIALER'; 
+DELETE FROM cc_did WHERE accessType = 'IVR_DIALER'; 
+DELETE FROM it_did WHERE serviceType = 'CALLING_CARD_PLATINUM';
+DELETE FROM rt_extension WHERE appdata = 'CALLING_CARD_AGI|1_USA_IVR_DIALER';

@@ -1,0 +1,56 @@
+================================================================================
+0.- Descripción
+================================================================================
+
+Aqui se especifican las versiones de las bibliotecas de terceros utilizadas en
+los proyectos que utilizan Glassfish.
+InteraxTelephony_Glassfish_Libraries
+================================================================================
+
+
+
+================================================================================
+1.- Bibliotecas:
+================================================================================
+
+Nombre                              	Versión
+--------------------------------------------------------------------------------
+Directorio: /usr/share/alodiga/interaxtelephony/default/server/glassfish/lib/
+activation.jar
+admin-cli-ee.jar
+admin-cli.jar
+appserv-admin.jar
+appserv-cmp.jar
+appserv-deployment-client.jar
+appserv-ee.jar
+appserv-ext.jar
+appserv-jstl.jar
+appserv-jwsacc.jar
+appserv-launch.jar
+appserv-rt.jar
+appserv-se.jar
+appserv-tags.jar
+appserv-upgrade.jar
+appserv-ws.jar
+com-sun-commons-launcher.jar
+com-sun-commons-logging.jar
+dbschema.jar
+j2ee.jar
+j2ee-svc.jar
+javaee.jar
+jesmf-plugin.jar
+jhall.jar
+jmac-api.jar
+jmxremote_optional.jar
+jsf-impl.jar
+jxta.jar
+mail.jar
+Pack200Task.jar
+shoal-gms.jar
+sun-appserv-ant.jar
+toplink-essentials-agent.jar
+toplink-essentials.jar
+webservices-rt.jar
+webservices-tools.jar
+
+================================================================================

@@ -1,0 +1,19 @@
+Pasos a seguir para migrar base de datos de producción:
+=======================================================
+1. Copiar el archivo smb://files.interaxmedia.com/temp/asterisk-prod.sql al directorio desde el cual se desea realizar el backup.
+2. Abrir consola de mysql.
+3. Crear base de batos asterisk a través de :
+        > create database asterisk;
+        > use asterisk;
+3. Utilizar el comando SOURCE para restaurar la base de datos de producción:
+		> SOURCE /path-archivo/asterisk-prod.sql
+
+4. Correr los script de migración que se encuentran en la carpeta /usr/src/interaxtelephony/default/InteraxTelephonyInstaller/db/migration_2010_04/ en el siguiente orden:
+
+	4.1 > SOURCE /usr/src/interaxtelephony/default/InteraxTelephonyInstallers/db/migration_2010-04/diff.sql;
+	4.2 > SOURCE /usr/src/interaxtelephony/default/InteraxTelephonyInstallers/db/migration_2010-04/cc_del.sql;
+	4.3 > SOURCE /usr/src/interaxtelephony/default/InteraxTelephonyInstallers/db/migration_2010-04/procedure_ivr_add.sql;
+	4.4 > SOURCE /usr/src/interaxtelephony/default/InteraxTelephonyInstallers/db/migration_2010-04/ivr_add.sql;
+	4.5 > SOURCE /usr/src/interaxtelephony/default/InteraxTelephonyInstallers/db/migration_2010-04/ip_pbx_upd.sql;
+	4.6 > SOURCE /usr/src/interaxtelephony/default/InteraxTelephonyInstallers/db/migration_2010-04/rt_extension_upd.sql
+

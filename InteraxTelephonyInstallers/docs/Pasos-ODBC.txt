@@ -1,0 +1,106 @@
+				      Configuración ODBC 
+
+1. Instalacion del Asterisk version 1.4.21
+2. Instalacion de librerias necesarias de odbc : libmyodbc, unixodbc.
+3. Seleccionar ODBC Storage en el menuselect de asterisk y realizar ./configure ... 
+4. Agregar en los archivos de configuración lo siguiente :
+
+
+res_odbc.conf 
+
+[asterisk]
+dsn => MySQL-asterisk
+username => usuario
+password => password
+pre-connect => yes
+
+5. Archivos de configuracion en /etc/ : odbc.ini y odbcinst.ini
+
+odbc.ini
+
+[MySQL-asterisk]
+Description     = MySQL ODBC Driver Testing
+Driver          = MySQL
+Socket          = /var/run/mysqld/mysqld.sock
+Server          = x.x.x.x
+User            = usuario
+Password        = password
+Database        = asterisk
+Option          = 3
+Port            = 3306
+
+
+odbcinst.ini
+
+[MySQL]
+Description	= MySQL driver
+Driver		= /usr/lib/odbc/libmyodbc.so
+Setup		= /usr/lib/odbc/libodbcmyS.so
+CPTimeout	=
+CPReuse		=	
+UsageCount = 1 
+
+
+6. Crear la Base de Datos :P
+
+
+
+				  Configuración CDR 
+
+
+1. Archivos de configuración  
+
+cdr_odbc.conf
+
+[global]
+dsn=MySQL-asterisk
+loguniqueid=yes 
+dispositionstring=yes
+table=cdr_call_detail_record
+usegmtime=yes
+
+
+
+				Configuracion REALTIME
+
+
+1. Archivos de configuracion
+
+
+extconfig.conf
+
+iaxusers => odbc,asterisk,rt_iax_peer
+iaxpeers => odbc,asterisk,rt_iax_peer
+sipusers => odbc,asterisk,rt_sip_peer
+sippeers => odbc,asterisk,rt_sip_peer
+extensions => odbc,asterisk,rt_extension
+voicemail => odbc,asterisk,rt_voicemail_user
+
+
+
+				Configuración  Voice Messages
+
+
+voicemail.conf
+
+odbcstorage=asterisk
+odbctable=vm_voice_message
+
+
+				Configuración SendMail
+				
+1. Se debe instalar el paquete sendmail.
+2. Luego agregar los siguientes parametros en el archivo voicemail.conf , dentro del contexto general:
+
+		attach = yes
+		format=  xxx
+		mailcmd=/usr/sbin/sendmail -t 
+		
+3. Además es necesario agregar el correo al cual se enviaran los mensajes por cada usuario/extensión. Por ejemplo: 
+
+		405 => 1234,Mariet,mdorribo@interaxmedia.com 
+		
+4. El campo attach puede ser colocado individual por cada extensión si asi se quiere.
+
+
+

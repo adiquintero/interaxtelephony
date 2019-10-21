@@ -1,0 +1,13 @@
+/asterisk-schema.sql/1.1/Tue Aug 31 18:45:17 2010//
+/asterisk_schema_add_ivr_and_did_change.sql/1.1/Tue Aug 31 18:45:17 2010//
+/callcenter-data.sql/1.1/Tue Aug 31 18:45:16 2010//
+/callcenter-schema.sql/1.1/Tue Aug 31 18:45:16 2010//
+/changeDID.sql/1.1/Tue Aug 31 18:45:16 2010//
+/delete_did_ivr.sql/1.1/Tue Aug 31 18:45:17 2010//
+/delete_did_ivr_dailer.sql/1.1/Tue Aug 31 18:45:17 2010//
+/delete_one_did_ivr.sql/1.1/Tue Aug 31 18:45:17 2010//
+/delete_one_did_ivr_dialer.sql/1.1/Tue Aug 31 18:45:16 2010//
+/dids_callcenter.sql/1.1/Tue Aug 31 18:45:17 2010//
+/dids_ivr_and_ivr_dailer.sql/1.1/Tue Aug 31 18:45:16 2010//
+/dids_qa.sql/1.1/Tue Aug 31 18:45:16 2010//
+D/migration_2010-04////

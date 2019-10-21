@@ -1,0 +1,418 @@
+- Sincronizar con el CVS
+
+- Reemplazar rutas
+	> Archivos de configuración
+		> InteraxTelephonyAGIServer
+		> InteraxTelephonyAMI
+		> IpPbxProvisionerThread
+	> Cables
+		> IpPbxEJB: IpPbxTransactionalManager		(SIP HOST)
+		> InteraxTelephonyCommons: IpPbxPhoneConfig (SIP PORT)
+		
+	Instalar todos los server menos Glassfish
+	Instalar todos los app menos 
+	
+- Clean & Build
+- Upload a /usr/src/interaxtelephony/<VERSION>
+
+INSTALL DOC:
+
+=> NO SE HIZO
+- INSTALAR Y CONFIGURAR GLASSFISH
+- DEPLOY DE MODULOS WEB
+- CONFIGURAR KAMAILIO
+
+INSTALL ATFTP Y ATFTPD CON APT-GET
+INSTALL SENDMAIL CON APT-GET
+
+=> EN PBX
+- CAMBIAR ASTERISK-ID
+	> /usr/share/interaxtelephony/1.0/server/asterisk/etc/asterisk/extensions.conf
+- ELIMINAR DEVELOPMENT DE LAS RUTAS
+	> EXCEL
+- ACTUALIZAR NEXTONE Y PREFIJO
+	> EXCEL
+- AGREGAR PEERS AL SIP.CONF
+	
+; -----------------------------------------------------------------------------------
+; DISPOSITIVOS DE PRUEBA
+; -----------------------------------------------------------------------------------
+
+[ccr1]
+type=friend
+host=dynamic
+secret=CCR$!1357
+context=test-nextone-free
+disallow=all
+allow=g729
+allow=gsm
+allow=alaw
+allow=ulaw
+language=es
+canreinvite=no
+nat=yes
+
+[ccr2]
+type=friend
+host=dynamic
+username=ccr2
+secret=1357CCR$!
+context=test-nextone
+disallow=all
+allow=g729
+allow=gsm
+allow=alaw
+allow=ulaw
+language=es
+canreinvite=no
+nat=yes
+
+[rafael]
+type=friend
+host=dynamic
+username=rafael
+secret=r4f43l!t3st
+context=global-crossing
+disallow=all
+allow=g729
+allow=gsm
+allow=alaw
+allow=ulaw
+language=es
+canreinvite=no
+nat=yes
+
+;[carlos]
+;type=friend
+;host=dynamic
+;username=carlos
+;secret=123456
+;context=test
+;disallow=all
+;allow=g729
+;language=es
+;canreinvite=no
+;nat=yes
+
+;[ippbx-sip-2]
+;type=peer
+;secret=
+;username=
+;insecure=very
+;host=200.73.192.226
+;disallow=all
+;allow=g729
+;context=rt_ip_wixtel_1
+;canreinvite=no
+;nat=yes
+;accountcode=IP_PBX|2
+;userfield=-|VIRTUAL_PHONE_OFFICE|1:2|-
+
+;[prepago00]
+;type=peer
+;secret=
+;username=
+;insecure=very
+;host=200.73.192.199
+;disallow=all
+;allow=g729
+;context=interax
+
+;[inmerx]
+;type=peer
+;secret=
+;username=
+;insecure=very
+;host=200.73.192.211
+;disallow=all
+;allow=all
+;context=test-benchmark
+;canreinvite=no
+;nat=yes
+
+; -----------------------------------------------------------------------------------
+; DISPOSITIVOS INTERNOS (Wixtel - 123)
+; -----------------------------------------------------------------------------------
+
+[nextone-miami]
+type=peer
+secret=
+username=
+insecure=very
+host=209.130.194.100
+disallow=all
+allow=g729
+context=
+canreinvite=no
+
+[nextone-ccs]
+type=peer
+secret=
+username=
+insecure=very
+host=200.73.192.234
+disallow=all
+allow=g729
+context=
+canreinvite=no
+transfer=no
+
+[pbx-interaxmedia]
+type=peer
+secret=
+username=
+insecure=very
+host=200.73.198.8
+context=
+canreinvite=no
+disallow=all
+allow=g729
+
+[qa-inmerx]
+type=peer
+secret=
+username=
+insecure=very
+host=200.73.192.214
+context=
+canreinvite=no
+disallow=all
+allow=g729
+
+[local]
+type=peer
+secret=
+username=
+insecure=very
+host=127.0.0.1
+canreinvite=no
+context=test-benchmark
+disallow=all
+allow=g729
+
+[pbx-123comve]
+type=peer
+secret=
+username=
+insecure=very
+host=200.73.192.219
+;host=192.168.200.13
+canreinvite=no
+disallow=all
+allow=g729
+;allow=alaw
+;allow=ulaw
+;nat=yes
+
+;[qa-alodiga]
+;type=peer
+;secret=
+;username=
+;insecure=very
+;host=qa.alodiga.com
+;context=
+;canreinvite=no
+;disallow=all
+;allow=g729
+
+; -----------------------------------------------------------------------------------
+; DISPOSITIVOS EXTERNOS (PROVEEDORES)
+; -----------------------------------------------------------------------------------
+
+[calea]
+type=peer
+secret=
+username=
+insecure=very
+host=64.19.98.203
+context=ip_calea_incoming
+canreinvite=no
+disallow=all
+allow=g729
+
+[ldtelecom]
+type=peer
+secret=
+username=
+insecure=very
+host=208.65.92.87
+disallow=all
+allow=g729
+context=test-ldtelecom
+canreinvite=no
+
+;[ldtelecom-1]
+;type=peer
+;secret=
+;username=
+;insecure=very
+;host=208.65.92.32
+;disallow=all
+;allow=g729
+;context=test
+;canreinvite=no
+
+[dash-1]
+type=peer
+secret=
+username=
+insecure=very
+host=208.94.157.10
+;host=63.214.44.25
+context=
+canreinvite=no
+disallow=all
+allow=ulaw
+
+[dash-2]
+type=peer
+secret=
+username=
+insecure=very
+host=208.94.159.10
+;host=63.214.44.26
+context=
+canreinvite=no
+disallow=all
+allow=ulaw
+
+;[global-crossing-LAB]
+;type=peer
+;secret=
+;username=
+;insecure=very
+;host=208.50.127.61
+;disallow=all
+;allow=g729
+;context=test-global-crossing
+;canreinvite=no
+
+[global-crossing]
+type=peer
+secret=
+username=
+insecure=very
+host=67.16.111.117
+disallow=all
+allow=g729
+context=global-crossing
+canreinvite=no
+
+[net-uno]
+type=peer
+secret=
+username=
+insecure=very
+host=64.86.104.31
+disallow=all
+allow=g729
+context=net-uno
+canreinvite=no
+;directrtpsetup=yes
+;progressinband=yes
+
+[pro-call]
+type=peer
+secret=
+username=
+insecure=very
+;host=200.88.115.50
+host=174.34.162.170
+disallow=all
+allow=ulaw
+canreinvite=no
+
+- TODO LIMPIAR PEERS DESARROLLO DEL SIP.CONF
+- TODO, SEPARAR EL SIP.CONF ESPECIAL
+- TODO DNS TFTP2 ETC
+- TODO NO RECONOCE COMANDO ALODIGA
+- TODO: FUE NECESARIO INSTALAR (MAS NO CONFIGURAR NI USAR) GLASSFISH POR LOS LIB PARA LOOKUP DE RMI
+- TODO: FUE NECESARIO CAMBIAR EL ORB LISTENER EN QA PARA LAS PRUEBAS
+
+
+- MODIFICAR SYSTEM START/STOP Y COMENTAR MODULOS NO PRESENTES (WEB SERVER, KAMAILIO)
+/usr/src/interaxtelephony/default/InteraxTelephonyInstallers/sh/scripts/interaxtelephony-system-start 
+/usr/src/interaxtelephony/default/InteraxTelephonyInstallers/sh/scripts/interaxtelephony-system-stop 
+
+MODIFICAR APP START/STOP ALL Y COMENTAR PROVISIONER THREAD
+/usr/src/interaxtelephony/default/InteraxTelephonyInstallers/sh/scripts/interaxtelephony-app-start
+/usr/src/interaxtelephony/default/InteraxTelephonyInstallers/sh/scripts/interaxtelephony-app-stop
+
+=> TEST CON QA
+- APUNTAR TODOS LOS DNS HACIA QA
+- MONTAR ASTERISK DB DE QA
+- REGISTRAR UN TELÉFONO
+- LEVANTAR SISTEMA
+- LLAMAR A UN NÚMERO DE ACCESO DE CC
+- LLAMAR A UN NúmERO DE ACCESO DE IVR
+
+=> PASE A PROD
+	- SHUTDOWN PBX1
+	- BACKUP DB PBX1
+	- RESTORE DB PBX1
+	- RUN MIGRATION SCRIPTS
+	- RUN FUNCTIONS
+	- RUN PROCEDURES
+	- REMOVE DNS QA
+	- CHANGE IP ADDR
+	- COPY TFTP CONTENTS
+
+mv /usr/share/interaxtelephony /usr/share/interaxtelephonyold
+mv /var/log/interaxtelephony /var/log/interaxtelephonyold
+	- COPY IT INSTALLER APP1
+	- INSTALL JAVA APP1
+	- INSTALL GF APP1 (AUNQUE NO SE USE)
+	- UPDATE LIBS GF APP1
+	- REDEPLOY EJBS GF APP1
+	- REDEPLOY PROVISIONER THREAD
+	- RUTAS DNS PROVISIONER THREAD 
+- CRON PROVISIONER THREAD
+	- UPDATE ASTERISK CONNECTION POOL PASSWORD
+
+- START SYSTEM
+
+
+- ACTUALIZAR DB
+- COPIAR ARCHIVOS
+	- SOUNDS?
+	- TFTP
+	- PEERS DEL SIP.CONF?
+	- CONTEXTS DEL EXTENSIONS.CONF
+
+=> EN APP
+- REDEPLOY DE LOS LIB
+- REDEPLOY DE LOS EJB
+- REDEPLOY DEL PROVISIONER THREAD
+- COPIAR ARCHIVOS DE PROVISIONER THREAD ¿?
+
+
+
+
+
+
+
+RECONFIG NEXTONE
+
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/callcenter/services/callcenter.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/callingcard/callingcardagi.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/callingcard/services/1_USA_IVR.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/callingcard/services/1_USA_IVR_DIALER.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/callingcard/services/1_USA_WEBPHONE.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/conference/interaxtelephonyconferenceagiserver.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/ippbx/activation/enterprises/wixtel-ippbxactivationagi.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/ippbx/emergency/enterprises/wixtel-ippbxemergencyagi.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/ippbx/forward/enterprises/wixtel-ippbxforwardagi.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/ippbx/incoming/enterprises/wixtel-ippbxincomingagi.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/ippbx/outgoing/enterprises/wixtel-ippbxoutgoingagi.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/ippbx/von/enterprises/wixtel-ippbxvonagi.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/proxy/callproxyagi.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/test/didtesterami.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/voicetraffic/forward/enterprises/wixtel-voicetrafficforwardagi.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/voicetraffic/outgoing/enterprises/wixtel-voicetrafficoutgoingagi.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/voicetraffic/voipforward/enterprises/wixtel-voicetrafficvoipforwardagi.properties
+/usr/share/interaxtelephony/1.0/server/mysql/base/5.1.34/bin/replace nextone-miami nextone-ccs -- /usr/share/interaxtelephony/1.0/server/agiserver/config/agis/voicetraffic/von/enterprises/wixtel-voicetrafficvonagi.properties
+
+cd /usr/share/interaxtelephony/default
+/usr/share/interaxtelephony/default/server/java/bin/java -cp lib/interaxtelephony/InteraxLibraries.jar:lib/interaxtelephony/InteraxTelephonyCommons.jar:lib/interaxtelephony/InteraxTelephonyConfigReloader.jar:lib/interaxtelephony/CallingCardAGIs.jar:lib/interaxtelephony/IpPbxAGIs.jar:lib/interaxtelephony/VoiceTrafficAGIs.jar:lib/interaxtelephony/CallCenterAGIs.jar:lib/interaxtelephony/InteraxTelephonyAMI.jar  InteraxTelephonyConfigReloader
+
+

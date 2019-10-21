@@ -1,0 +1,4 @@
+DELETE FROM cc_did_step WHERE action = 'IVR_DIALER' AND data='18668777794'; 
+DELETE FROM cc_did WHERE accessType = 'IVR_DIALER' AND externalNumber='18668777794'; 
+DELETE FROM it_did WHERE serviceType = 'CALLING_CARD_PLATINUM' AND externalNumber='18668777794';
+DELETE FROM rt_extension WHERE appdata = 'CALLING_CARD_AGI|1_USA_IVR_DIALER' AND exten = '18668777794';

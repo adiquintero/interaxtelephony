@@ -1,0 +1,27 @@
+Pasos para instalar ejecutar asterisk con un usuario asterisk en vez de root
+
+Cambiar la entrada astrundir en el archivo /etc/asterisk/asterisk.conf por:
+astrundir => /var/run/asterisk
+
+Ejecutar los siguientes comandos en la consola siendo root:
+adduser --system --group --home /var/lib/asterisk --no-create-home --gecos "Asterisk PBX" asterisk
+mkdir -p /var/run/asterisk 
+chown --recursive asterisk:asterisk /var/lib/asterisk
+chown --recursive asterisk:asterisk /var/log/asterisk
+chown --recursive asterisk:asterisk /var/run/asterisk
+chown --recursive asterisk:asterisk /var/spool/asterisk
+chown --recursive asterisk:asterisk /usr/lib/asterisk
+chmod --recursive u=rwX,g=rX,o= /var/lib/asterisk
+chmod --recursive u=rwX,g=rX,o= /var/log/asterisk
+chmod --recursive u=rwX,g=rX,o= /var/run/asterisk
+chmod --recursive u=rwX,g=rX,o= /var/spool/asterisk
+chmod --recursive u=rwX,g=rX,o= /usr/lib/asterisk
+chown --recursive root:asterisk /etc/asterisk
+chmod --recursive u=rwX,g=rX,o= /etc/asterisk 
+
+
+Para ejecutar asterisk ahora se usa el siguiente comando:
+asterisk -U asterisk
+
+Para conectarse a la consola de asterisk ahora se usa el siguiente comando:
+asterisk -rU asterisk

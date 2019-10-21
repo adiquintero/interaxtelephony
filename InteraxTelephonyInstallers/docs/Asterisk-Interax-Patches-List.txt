@@ -1,0 +1,174 @@
+Patch #1: Audio Base Folder
+--------------------------------------------------------
+Autor:				Vicente Robles
+Archivos: 			- main/file.c
+Descripción:			Permite especificar una variable de canal (STREAM_BASE_PATH), la cual contiene la ruta absoluta o relativa al directorio sounds de Asterisk, 					en la cual se buscarán todos los audios utilizados por cualquier aplicación invocada en dicho canal.
+Status:				Deprecado
+
+
+Patch #2: Extended Dial Status Info
+--------------------------------------------------------
+Autor:				Vicente Robles
+Archivos: 			- apps/app_dial.c
+Descripción:			Modifica la aplicación Dial para que retorne dos nuevas variables de canal con información relacionada a la llamada que acaba de finalizar: 					DIALCDRID, con el uniqueId del CDR corresponidente a dicha llamada, y DIALSTART, con la fecha de inicio de la llamada.
+Status:				En uso
+
+
+Patch #3: Dynamic Real Time Contexts
+--------------------------------------------------------
+Autor:				Vicente Robles
+Archivos: 			- include/asterisk/pbx.h
+				- main/pbx.c
+Descripción:			Elimina la necesidad de declarar un contexto vacio con una sentencia switch en el archivo extensions.conf para poder declarar una extensión 					en la base de datos de Real Time que pertenezca a dicho contexto. El nombre del contexto 'virtual', debe tener el formato 'rt_XXXYYY', y el 					contexto padre rt_XXX debe existir en el archivo extensions.conf. Esto es así para evitar creación dinámica de contextos no deseados. El 					contexto creado contiene dos sentencias: un switch a Real Time, y un include de su contexto padre.
+Status:				En uso
+
+
+Patch #4: Initial CDR Userfield value for SIP & IAX peers
+--------------------------------------------------------
+Autor:				Vicente Robles
+Archivos: 			- include/asterisk/channel.h
+				- main/channel.c
+				- include/asterisk/cdr.h
+				- main/cdr.c
+				- channels/chan_iax2.c
+				- channels/chan_sip.c
+Descripción:			Permite especificar el campo userfield en los peers SIP e IAX. El valor especificado será utilizado como valor inicial en el campo userfield 					del CDR en cualquier llamada iniciada por dichos peers.
+Status:				En uso
+
+
+Patch #5: Stream File Manager Action
+--------------------------------------------------------
+Autor:				Vicente Robles
+Archivos: 			- main/manager.c
+Descripción:			Permite enviar una acción via AMI para reproducir un audio sobre el canal especificado.
+Status:				En uso
+
+
+Patch #6: Asterisk Server Identifier on CDRs
+--------------------------------------------------------
+Autor:				Maria Virginia Dorribo
+Archivos: 			-include/asterisk/cdr.h
+				-main/cdr.c
+				-cdr/cdr_odbc.c
+Descripción:			Permite agregar el campo Asterisk Id en la estructura de CDR, para almacenar el asterisk de donde proviene la llamada.
+				El Asterisk Id se especifica en una variable global (definida en el contexto globals del archivo extensions.conf)
+				(ASTERISK_SERVER = Asterisk-name)
+Status:				En uso
+
+
+Patch #7: Full Date Info on ODBC CDRs
+--------------------------------------------------------
+Autor:				Maria Virginia Dorribo
+Archivos: 			- cdr/cdr_odbc.c
+Descripción:			Permite almacenar los campos startDate, answerDate y endDate en el cdr de la base de datos ODBC, en lugar del único campo que se almacena por 					defecto, que es callDate (el mismo startDate)
+Status:				En uso
+
+
+Patch #8: IpPbx Virtual Voice Mail Users
+--------------------------------------------------------
+Autor:				Vicente Robles
+Archivos: 			- apps/app_voicemail.c
+Descripción:			Realiza conversiones del tipo Número Ext. -> Ipbx a nombre real de buzón para los casos authenticate, reply & forward, cuando el buzón que se 					está utilizando es del contexto ippbx-vm
+Status:				En uso
+
+
+Patch #9: CDR Ignore amaflag
+--------------------------------------------------------
+Autor:				Vicente Robles
+Archivos: 			-include/asterisk/cdr.h
+				-main/cdr.c
+Descripción:
+Status:				En uso
+
+
+Patch #10: Override CDR fields
+--------------------------------------------------------
+Autor:				Vicente Robles
+Archivos: 			-include/asterisk/cdr.h
+				-funcs/func_cdr.c
+				-main/cdr.c
+Descripción:
+Status:				En uso
+
+
+Patch #11: Last CDR Info after ResetCdr
+--------------------------------------------------------
+Autor:				Vicente Robles
+Archivos: 			-include/asterisk/cdr.h
+				-main/cdr.c
+				-main/pbx.c
+Descripción:
+Status:				En uso
+
+
+Patch #12: Email Templates
+--------------------------------------------------------
+Autor:				Mariet Dorribo/Vicente Robles
+Archivos:			-apps/app_voicemail.c
+				-funcs/func_odbc.c
+
+Descripción: 			Permite configurar el formato,subject,dateFormat,language,body del email enviado por el Voicemessage. Adicionalmente se permite especificar 					el nombre y la dirección electrónica del remitente del correo.
+Uso:				En uso
+
+
+Patch #13: Mailbox Names
+--------------------------------------------------------
+Autor:				Vicente Robles
+Archivos:			-apps/app_voicemail.c
+
+Descripción: 			Permite configurar un nombre para los mailboxes de forma que el mismo puede utilizarse en los correos de notificación con la variable 					VM_MAILBOX_NAME
+Uso:				En uso
+
+
+Patch #14: Voicemail Screen Name
+--------------------------------------------------------
+Autor:				Vicente Robles
+Archivos:			-apps/app_voicemail.c
+
+Descripción: 			Permite configurar un número en la variable IP_VM_SCREEN_NUMBER el cual será utilizado al construir el mensaje "La persona en la extensión 					XXX no está disponible"
+Uso:				En uso
+
+
+Patch #15: ForkCdr -v
+--------------------------------------------------------
+Autor:				Carlos Garcia
+Archivos:			-apps/app_forkcdr.c
+
+Descripción: 			Permite que el forkcdr -R se realice correctamente ya que al ejecutarce en la versión original se generaba un bugs.
+Uso:				En uso
+
+
+
+Patch #16: HangupCause on CDRs
+--------------------------------------------------------
+Autor:				Nestor Sánchez
+Archivos: 			-include/asterisk/cdr.h
+				-main/cdr.c
+				-cdr/cdr_odbc.c
+				-main/channel.c
+				-main/pbx.c
+				-apps/app_forkcdr.c
+				-apps/app_followme.c
+				-res/res_features.c
+
+Descripción:			Permite agregar el campo hangupcause en la estructura de CDR, para almacenar la causa de que la llamada finalice.
+Status:				En uso
+
+
+Patch #17: Stack Memory
+--------------------------------------------------------
+Autor:				Nestor Sánchez / Vicente Robles
+Archivos:			-include/asterisk/utils.h
+
+Descripción: 			Modifica el tamaño de la pila para evitar que la aplicación VoiceMail cause un segmentation fault al manejar muchos datos
+Uso:				En uso
+
+
+Patch #18: Sip Register User Intent
+--------------------------------------------------------
+Autor:				Yamelis Almea / Nestor Sanchez
+Archivos:			-channels/chan_sip.c
+
+Descripción: 			Almacenar en la base de datos asterisk intentos de registros de usuarios
+Uso:				En prueba
+
